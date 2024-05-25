@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import connectMongoDB from "../../../libs/mongodb";
 import Move from "../../../models/move";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request) {
     const { detail, date, amount, moveType } = await request.json();
     await connectMongoDB();

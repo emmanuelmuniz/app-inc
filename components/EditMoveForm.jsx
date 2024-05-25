@@ -11,9 +11,11 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
     const [newMoveType, setMoveType] = useState(moveType);
 
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
@@ -26,12 +28,11 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
 
             if (!res.ok) {
                 throw new Error("Failed to update move.");
-            } else {
-                router.refresh();
-                router.push("/");
             }
 
-
+            router.push("/");
+            router.refresh();
+            setIsLoading(false);
         } catch (error) {
             console.log("Error");
         }

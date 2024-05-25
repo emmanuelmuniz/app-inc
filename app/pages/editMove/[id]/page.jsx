@@ -3,8 +3,10 @@ import EditMoveForm from "@/components/EditMoveForm"
 const getMoveById = async (id) => {
     try {
         const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
-            cache: "no-store",
+            cache: "no-store"
         });
+
+        console.log("---Si entro en edit...");
 
         if (!res.ok) {
             throw new Error("Failed to fetch Move.");

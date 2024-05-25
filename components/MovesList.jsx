@@ -11,15 +11,16 @@ const getMoves = async () => {
         if (!res.ok) {
             throw new Error("Failed to fetch moves.");
         }
+        console.log("---------GETTING MOVES------------")
 
         return res.json();
-
     } catch (error) {
         console.log("Error loading moves: ", error);
     }
 }
 
 export default async function MovesList() {
+    console.log("------------------------------------------")
 
     const { moves } = await getMoves();
 
