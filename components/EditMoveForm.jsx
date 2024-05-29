@@ -2,22 +2,49 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { DateInput } from "@nextui-org/date-input";
+import { Input } from "@nextui-org/input";
+import { parseDate } from "@internationalized/date";
+import { Select, SelectItem } from "@nextui-org/select";
+import { Button } from "@nextui-org/button";
 
 export default function EditMoveForm({ id, detail, amount, date, moveType }) {
 
     const [newDetail, setDetail] = useState(detail);
     const [newAmount, setAmount] = useState(amount);
-    const [newDate, setDate] = useState(date);
     const [newMoveType, setMoveType] = useState(moveType);
 
+    const parts = date.split("/");
+    const day = parseInt(parts[0]);
+    const month = parseInt(parts[1]) - 1;
+    const year = parseInt(parts[2]);
+
+    const dateObject = new Date(year, month, day);
+    const formattedDate = dateObject.toISOString().slice(0, 10);
+    const inputDate = parseDate(formattedDate);
+    const [updatedDate, setDate] = useState(inputDate);
+
+    const moveTypeItems = [
+        { value: "Ingreso", label: "Ingreso" },
+        { value: "Egreso", label: "Egreso" }
+    ];
+
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true);
 
         try {
+            const newDate = new Date(
+                updatedDate.year,
+                updatedDate.month - 1,
+                updatedDate.day
+            ).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric"
+            });
+
             const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
                 method: "PUT",
                 headers: {
@@ -32,7 +59,6 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
 
             router.push("/");
             router.refresh();
-            setIsLoading(false);
         } catch (error) {
             console.log("Error");
         }
@@ -41,31 +67,45 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
     return (
         <div className="flex justify-center bg-slate-100">
             <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-3 w-7/12 p-5">
-                <input
-                    onChange={e => setDetail(e.target.value)}
+                <Input
+                    onChange={(e) => setDetail(e.target.value)}
                     value={newDetail}
                     type="text"
-                    className="border rounded border-slate-500 px-2 py-2 mb-1"
-                    placeholder="Detalle" />
-                <input
-                    onChange={e => setAmount(e.target.value)}
+                    label="Detalle"
+                    className=""
+                    isRequired />
+                <Input
+                    onChange={(e) => setAmount(e.target.value)}
                     value={newAmount}
-                    type="text"
-                    className="border rounded border-slate-500 px-2 py-2 mb-1"
-                    placeholder="Monto" />
-                <input
-                    onChange={e => setDate(e.target.value)}
-                    value={newDate}
-                    type="text"
-                    className="border rounded border-slate-500 px-2 py-2 mb-1"
-                    placeholder="Fecha del movimiento" />
-                <input
-                    onChange={e => setMoveType(e.target.value)}
+                    type="number"
+                    className=""
+                    label="Monto"
+                    isRequired />
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+                    <DateInput
+                        label={"Fecha del movimiento"}
+                        onChange={(updatedDate) => setDate(updatedDate)}
+                        isRequired
+                        format="DD/MM/YYYY"
+                        value={updatedDate}
+                    />
+                </div>
+                <Select
+                    defaultSelectedKeys={[`${moveType}`]}
+                    label="Tipo de Movimiento"
+                    onChange={(e) => setMoveType(e.target.value)}
                     value={newMoveType}
-                    type="text"
-                    className="border rounded border-slate-500 px-2 py-2 mb-1"
-                    placeholder="Tipo de movimiento" />
-                <button className="self-center bg-blue-500 font-bold text-white py-3 px-6 mt-3 w-fit rounded-lg">Actualizar Movimiento</button>
+                    isRequired
+                >
+                    {moveTypeItems.map((moveTypeItem) => (
+                        <SelectItem key={moveTypeItem.value} value={moveTypeItem.value}>
+                            {moveTypeItem.label}
+                        </SelectItem>
+                    ))}
+                </Select>
+                <Button type="submit" color="primary" className="mt-2 w-1/2.5 self-center p-3">
+                    Actualizar Movimiento
+                </Button>
             </form>
         </div>
     )

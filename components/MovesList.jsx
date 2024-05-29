@@ -11,7 +11,6 @@ const getMoves = async () => {
         if (!res.ok) {
             throw new Error("Failed to fetch moves.");
         }
-        console.log("---------GETTING MOVES------------")
 
         return res.json();
     } catch (error) {
@@ -20,33 +19,29 @@ const getMoves = async () => {
 }
 
 export default async function MovesList() {
-    console.log("------------------------------------------")
-
     const { moves } = await getMoves();
 
     return (
         <>
-
-            <div className='container mx-auto'>
-                <table className='container mx-auto'>
-                    <thead>
-                        <tr className='font-bold p-8 border border-slate-300 justify-center'>
-                            <th className='p-2'>Fecha</th>
-                            <th className='p-2'>Monto</th>
-                            <th className='p-2'>Tipo de movimiento</th>
-                            <th className='p-2'>Detalle</th>
-                            <th className='p-2'></th>
-                            <th className='p-2'></th>
+            <div className='container mx-auto rounded-lg overflow-hidden'>
+                <table className='container mx-auto table-auto '>
+                    <thead className=''>
+                        <tr className='font-bold bg-slate-300 rounded-sm'>
+                            <th className='p-3 text-left'>Fecha</th>
+                            <th className='p-3 text-left'>Monto</th>
+                            <th className='p-3 text-left'>Tipo de movimiento</th>
+                            <th className='p-3 text-left'>Detalle</th>
+                            <th className='p-3 text-left'>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className=''>
                         {moves.map(m => (
-                            <tr className='p-4 border border-slate-300 justify-center text-center'>
-                                <td className='p-2'>{m.date}</td>
-                                <td className='p-2'>{m.amount}</td>
-                                <td className='p-2'>{m.moveType}</td>
-                                <td className='p-2'>{m.detail}</td>
-                                <td className='py-2 px-1 grid grid-cols-2'>
+                            <tr className='border-slate-300 hover:bg-violet-100  odd:bg-white even:bg-slate-50'>
+                                <td className='p-3 text-left'>{m.date}</td>
+                                <td className='p-3 text-left'>{m.amount}</td>
+                                <td className='p-3 text-left'>{m.moveType}</td>
+                                <td className='p-3 text-left'>{m.detail}</td>
+                                <td className='p-3 text-left grid grid-cols-2'>
                                     <RemoveButton id={m._id} className='mx-1' />
                                     <Link className='mx-1' href={`/pages/editMove/${m._id}`}>
                                         <HiPencilAlt size={24} />
@@ -57,7 +52,6 @@ export default async function MovesList() {
                     </tbody>
                 </table>
             </div>
-
         </>
     );
 } 
