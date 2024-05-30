@@ -20,8 +20,8 @@ export default function RemoveButton({ id }) {
     }
 
     return (
-        <button onClick={removeMove} className="text-red-400">
-            <HiOutlineTrash size={24} />
+        <button onClick={removeMove} className="text-red-400 hover:opacity-70 duration-300">
+            <HiOutlineTrash title="Eliminar" size={24} />
         </button>
     );
 }

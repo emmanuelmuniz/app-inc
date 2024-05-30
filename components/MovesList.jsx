@@ -1,32 +1,24 @@
 import RemoveButton from '@/components/RemoveButton'
 import Link from "next/link"
 import { HiPencilAlt } from 'react-icons/hi';
-
-const getMoves = async () => {
-    try {
-        const res = await fetch('http://localhost:3000/api/moves', {
-            cache: 'no-store'
-        });
-
-        if (!res.ok) {
-            throw new Error("Failed to fetch moves.");
-        }
-
-        return res.json();
-    } catch (error) {
-        console.log("Error loading moves: ", error);
-    }
-}
+import { GetMoves } from '../app/api/moves/requests'
+import Balance from '@/components/Balance'
+import { Divider } from "@nextui-org/divider";
 
 export default async function MovesList() {
-    const { moves } = await getMoves();
+    const { moves } = await GetMoves();
+
+    const formatter = new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+    });
 
     return (
         <>
-            <div className='container mx-auto rounded-lg overflow-hidden'>
-                <table className='container mx-auto table-auto '>
+            <div className='max-w-* rounded-lg overflow-hidden'>
+                <table className='w-full table-auto'>
                     <thead className=''>
-                        <tr className='font-bold bg-slate-300 rounded-sm'>
+                        <tr className='font-bold text-white bg-teal rounded-sm'>
                             <th className='p-3 text-left'>Fecha</th>
                             <th className='p-3 text-left'>Monto</th>
                             <th className='p-3 text-left'>Tipo de movimiento</th>
@@ -36,21 +28,29 @@ export default async function MovesList() {
                     </thead>
                     <tbody className=''>
                         {moves.map(m => (
-                            <tr className='border-slate-300 hover:bg-violet-100  odd:bg-white even:bg-slate-50'>
+                            <tr className='border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
                                 <td className='p-3 text-left'>{m.date}</td>
-                                <td className='p-3 text-left'>{m.amount}</td>
+                                {/* <td className='p-3 text-left'>{m.amount} </td> */}
+                                <td className='p-3 text-left'>
+                                    {formatter.format(m.amount)}
+                                </td>
                                 <td className='p-3 text-left'>{m.moveType}</td>
                                 <td className='p-3 text-left'>{m.detail}</td>
                                 <td className='p-3 text-left grid grid-cols-2'>
                                     <RemoveButton id={m._id} className='mx-1' />
-                                    <Link className='mx-1' href={`/pages/editMove/${m._id}`}>
-                                        <HiPencilAlt size={24} />
+                                    <Link className='mx-1 hover:opacity-70 duration-300' href={`/pages/editMove/${m._id}`}>
+                                        <HiPencilAlt title="Editar" size={24} />
                                     </Link>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            <Divider className="my-4" />
+            <div className="">
+                <Balance moveList={moves} />
             </div>
         </>
     );

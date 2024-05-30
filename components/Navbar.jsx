@@ -1,11 +1,22 @@
 import Link from "next/link"
 
 export default function Navbar() {
-    return(
+    return (
         <nav className="flex justify-between items-center
-        bg-slate-800 px-8 py-3 rounded-lg overflow-hidden">
+        bg-gunmetal px-8 py-3 rounded-lg overflow-hidden">
             <Link className="text-white font-bold" href={'/'}>Finance Tracker</Link>
-            <Link className="p-2 rounded-lg bg-primary-400 overflow-hidden text-white text-sm" href={'/pages/addMove'}>Crear Movimiento</Link>
+            <Link className="p-2 
+                rounded-lg 
+                bg-teal 
+                overflow-hidden 
+                text-white 
+                font-bold 
+                text-sm 
+                transition-colors
+                duration-300 
+                ease-in-out 
+                hover:bg-teal-hover"
+                href={'/pages/addMove'}>Crear Movimiento</Link>
         </nav>
     )
 }

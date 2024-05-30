@@ -72,16 +72,16 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
                     value={newDetail}
                     type="text"
                     label="Detalle"
-                    className=""
+                    className="m-1"
                     isRequired />
                 <Input
                     onChange={(e) => setAmount(e.target.value)}
                     value={newAmount}
                     type="number"
-                    className=""
+                    className="m-1"
                     label="Monto"
                     isRequired />
-                <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-4 m-1">
                     <DateInput
                         label={"Fecha del movimiento"}
                         onChange={(updatedDate) => setDate(updatedDate)}
@@ -96,6 +96,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
                     onChange={(e) => setMoveType(e.target.value)}
                     value={newMoveType}
                     isRequired
+                    className="m-1"
                 >
                     {moveTypeItems.map((moveTypeItem) => (
                         <SelectItem key={moveTypeItem.value} value={moveTypeItem.value}>
@@ -103,7 +104,17 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
                         </SelectItem>
                     ))}
                 </Select>
-                <Button type="submit" color="primary" className="mt-2 w-1/2.5 self-center p-3">
+                <Button type="submit"
+                    className="mt-2 
+                    w-1/2.5 
+                    self-center trnap-3 
+                    transition-colors 
+                    duration-300 
+                    ease-in-out 
+                    hover:bg-columbia-blue-hover 
+                    bg-teal 
+                    text-white 
+                    font-bold">
                     Actualizar Movimiento
                 </Button>
             </form>

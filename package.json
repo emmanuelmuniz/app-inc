@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/button": "^2.0.31",
     "@nextui-org/date-picker": "^2.0.7",
+    "@nextui-org/divider": "^2.0.28",
     "@nextui-org/input": "^2.1.21",
     "@nextui-org/select": "^2.1.27",
     "@nextui-org/system": "^2.1.2",
@@ -19,6 +20,8 @@
     "framer-motion": "^11.2.6",
     "mongoose": "^8.3.4",
     "next": "14.2.3",
+    "next-intl": "^3.14.1",
+    "number-formatter": "^1.2.0",
     "react": "^18.3.1",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",

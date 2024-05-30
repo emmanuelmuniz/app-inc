@@ -1,10 +1,12 @@
 import MovesList from '@/components/MovesList'
 
+export default async function Home() {
 
-export default function Home() {
   return (
-    <div>
-      <MovesList />
-    </div>
+    <>
+      <div className='movesList'>
+        <MovesList />
+      </div>
+    </>
   );
 }
