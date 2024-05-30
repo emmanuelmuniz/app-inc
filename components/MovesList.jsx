@@ -30,7 +30,6 @@ export default async function MovesList() {
                         {moves.map(m => (
                             <tr className='border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
                                 <td className='p-3 text-left'>{m.date}</td>
-                                {/* <td className='p-3 text-left'>{m.amount} </td> */}
                                 <td className='p-3 text-left'>
                                     {formatter.format(m.amount)}
                                 </td>

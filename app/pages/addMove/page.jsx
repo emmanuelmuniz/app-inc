@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react";
 import { useState } from "react"
 import { useRouter } from "next/navigation";
 import { DateInput } from "@nextui-org/date-input";
@@ -10,9 +11,8 @@ import { Button } from "@nextui-org/button";
 
 export default function AddMove() {
     const [detail, setDetail] = useState("");
-    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState("0,00");
     const [moveType, setMoveType] = useState("");
-
     const [moveDate, setDate] = useState(today(getLocalTimeZone()));
 
     const moveTypeItems = [
@@ -22,23 +22,25 @@ export default function AddMove() {
 
     const router = useRouter();
 
+    const validateAmount = (amount) => amount.match(/^\d{1,}(?:,\d{1,2})?$/);
+
+    const isInvalid = React.useMemo(() => {
+        if (amount === "") return false;
+
+        return validateAmount(amount) ? false : true;
+    }, [amount]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!detail || !amount || !moveDate || !moveType) {
             alert("Todos los datos son requeridos para crear un nuevo movimiento.");
+        } else if (amount == (0 || "0,00")) {
+            alert("El monto debe ser mayor a 0.");
         } else {
-
             try {
-                const date = new Date(
-                    moveDate.year,
-                    moveDate.month - 1,
-                    moveDate.day
-                ).toLocaleDateString("es-ES", {
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric"
-                });
+                const date = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
+                    .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
 
                 const res = await fetch('http://localhost:3000/api/moves', {
                     method: "POST",
@@ -68,13 +70,18 @@ export default function AddMove() {
                     value={detail}
                     type="text"
                     label="Detalle"
-                    className="m-1" />
+                    className="m-1"
+                    isRequired />
                 <Input
                     onChange={(e) => setAmount(e.target.value)}
                     value={amount}
                     type="text"
                     className="m-1"
-                    label="Monto" />
+                    label="Monto"
+                    isRequired
+                    isInvalid={isInvalid}
+                    color={isInvalid ? "danger" : "black"}
+                    errorMessage="Ingresa un número válido" />
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4 m-1">
                     <DateInput
                         label={"Fecha del movimiento"}
@@ -91,6 +98,7 @@ export default function AddMove() {
                     className="m-1"
                     onChange={(e) => setMoveType(e.target.value)}
                     value={moveType}
+                    isRequired
                 >
                     {moveTypeItems.map((moveTypeItem) => (
                         <SelectItem key={moveTypeItem.value} value={moveTypeItem.value}>
@@ -98,17 +106,10 @@ export default function AddMove() {
                         </SelectItem>
                     ))}
                 </Select>
-                <Button type="submit" className="mt-2 
-                    w-1/2.5 
-                    self-center 
-                    p-3 
-                    bg-teal 
-                    text-white 
-                    font-bold 
-                    transition-colors 
-                    duration-300 
-                    ease-in-out 
-                    hover:bg-columbia-blue-hover">
+                <Button type="submit" className="mt-2 w-1/2.5 p-3 self-center
+                    bg-teal text-white font-bold 
+                    transition-colors duration-300 ease-in-out 
+                    hover:bg-columbia-blue-hover ">
                     Crear Movimiento
                 </Button>
             </form>

@@ -5,7 +5,8 @@ import Move from "../../../models/move";
 export const dynamic = "force-dynamic";
 
 export async function POST(request) {
-    const { detail, date, amount, moveType } = await request.json();
+    let { detail, date, amount, moveType } = await request.json();
+    amount = amount.replace(",", ".");
     await connectMongoDB();
     await Move.create({ detail, date, amount, moveType });
     return NextResponse.json({ message: "Move created" }, { status: 201 });

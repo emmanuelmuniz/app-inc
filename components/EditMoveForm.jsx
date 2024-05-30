@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { DateInput } from "@nextui-org/date-input";
@@ -11,7 +12,7 @@ import { Button } from "@nextui-org/button";
 export default function EditMoveForm({ id, detail, amount, date, moveType }) {
 
     const [newDetail, setDetail] = useState(detail);
-    const [newAmount, setAmount] = useState(amount);
+    const [newAmount, setAmount] = useState(amount.toString());
     const [newMoveType, setMoveType] = useState(moveType);
 
     const parts = date.split("/");
@@ -30,6 +31,14 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
     ];
 
     const router = useRouter();
+
+    const validateAmount = (newAmount) => newAmount.match(/^\d{1,}(?:,\d{1,2})?$/);
+
+    const isInvalid = React.useMemo(() => {
+        if (newAmount === "") return false;
+
+        return validateAmount(newAmount) ? false : true;
+    }, [newAmount]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,10 +86,13 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
                 <Input
                     onChange={(e) => setAmount(e.target.value)}
                     value={newAmount}
-                    type="number"
+                    type="text"
                     className="m-1"
                     label="Monto"
-                    isRequired />
+                    isRequired
+                    isInvalid={isInvalid}
+                    color={isInvalid ? "danger" : "black"}
+                    errorMessage="Ingresa un número válido" />
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4 m-1">
                     <DateInput
                         label={"Fecha del movimiento"}
