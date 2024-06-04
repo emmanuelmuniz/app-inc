@@ -21,7 +21,8 @@ export default async function MovesList() {
                         <tr className='font-bold text-white bg-teal rounded-sm'>
                             <th className='p-3 text-left'>Fecha</th>
                             <th className='p-3 text-left'>Monto</th>
-                            <th className='p-3 text-left'>Tipo de movimiento</th>
+                            <th className='p-3 text-left'>Tipo de mov.</th>
+                            <th className='p-3 text-left'>Categoría</th>
                             <th className='p-3 text-left'>Detalle</th>
                             <th className='p-3 text-left'>Acciones</th>
                         </tr>
@@ -34,6 +35,7 @@ export default async function MovesList() {
                                     {formatter.format(m.amount)}
                                 </td>
                                 <td className='p-3 text-left'>{m.moveType}</td>
+                                <td className='p-3 text-left'>{m.category.category}</td>
                                 <td className='p-3 text-left'>{m.detail}</td>
                                 <td className='p-3 text-left grid grid-cols-2'>
                                     <RemoveButton id={m._id} className='mx-1' />

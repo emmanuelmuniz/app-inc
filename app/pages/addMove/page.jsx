@@ -1,18 +1,32 @@
 "use client"
 
 import React from "react";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { DateInput } from "@nextui-org/date-input";
 import { Input } from "@nextui-org/input";
 import { today, getLocalTimeZone, parseDate } from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
+import { GetCategories } from '../../api/categories/requests'
+
+
+async function fetchCategories() {
+    const { categories } = await GetCategories();
+    return categories;
+}
 
 export default function AddMove() {
+    const router = useRouter();
+
+    const [categories, setCategories] = useState([]);
     const [detail, setDetail] = useState("");
-    const [amount, setAmount] = useState("0,00");
+    const [amount, setAmount] = useState("");
     const [moveType, setMoveType] = useState("");
+    const [categoryObject, setCategory] = useState({
+        _id: "",
+        category: "",
+    });
     const [moveDate, setDate] = useState(today(getLocalTimeZone()));
 
     const moveTypeItems = [
@@ -20,7 +34,10 @@ export default function AddMove() {
         { value: "Egreso", label: "Egreso" }
     ];
 
-    const router = useRouter();
+    
+    useEffect(() => {
+        fetchCategories().then(data => setCategories(data));
+    }, []);
 
     const validateAmount = (amount) => amount.match(/^\d{1,}(?:,\d{1,2})?$/);
 
@@ -39,6 +56,13 @@ export default function AddMove() {
             alert("El monto debe ser mayor a 0.");
         } else {
             try {
+                const category = {
+                    category: categoryObject.category,
+                    _id: categoryObject._id
+                }
+
+                console.log(category)
+
                 const date = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
                     .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
 
@@ -47,7 +71,7 @@ export default function AddMove() {
                     headers: {
                         "Content-type": "application/json"
                     },
-                    body: JSON.stringify({ detail, amount, date, moveType })
+                    body: JSON.stringify({ detail, amount, date, category, moveType })
                 });
 
                 if (res.ok) {
@@ -80,6 +104,7 @@ export default function AddMove() {
                     label="Monto"
                     isRequired
                     isInvalid={isInvalid}
+                    placeholder="0,00"
                     color={isInvalid ? "danger" : "black"}
                     errorMessage="Ingresa un número válido" />
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4 m-1">
@@ -92,6 +117,25 @@ export default function AddMove() {
                         value={moveDate}
                     />
                 </div>
+                <Select
+                    label="Categoría"
+                    placeholder="Seleccionar"
+                    className="m-1"
+                    onChange={(e) => {
+                        const selectedCategoryId = e.target.value;
+                        const selectedCategory = categories.find(
+                            (categoryObject) => categoryObject._id === selectedCategoryId
+                        );
+                        setCategory(selectedCategory);
+                    }}
+                    value={categoryObject._id}
+                >
+                    {categories.map((categoryItem) => (
+                        <SelectItem key={categoryItem._id} value={categoryItem}>
+                            {categoryItem.category}
+                        </SelectItem>
+                    ))}
+                </Select>
                 <Select
                     label="Tipo de Movimiento"
                     placeholder="Seleccionar"
