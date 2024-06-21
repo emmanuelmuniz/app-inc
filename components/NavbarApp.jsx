@@ -3,10 +3,7 @@ import {
     Navbar,
     NavbarBrand,
     NavbarContent,
-    NavbarItem,
-    NavbarMenuToggle,
-    NavbarMenu,
-    NavbarMenuItem
+    NavbarItem
 } from "@nextui-org/navbar";
 
 export default function NavbarApp() {
