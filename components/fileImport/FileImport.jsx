@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { Button } from "@nextui-org/button";
 import CVSMoveJSONToDBJSON from "../../app/utils/CVSMoveJSONToDBJSON"
+import { CreateMoves } from '/app/api/moves/requests'
 
 
 const FileImport = () => {
@@ -28,7 +29,6 @@ const FileImport = () => {
                 complete: (results) => {
                     const parsedData = CVSMoveJSONToDBJSON(results.data);
                     setJsonData(parsedData);
-                    console.log(parsedData);
                 },
             });
         };
@@ -38,6 +38,22 @@ const FileImport = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            console.log(jsonData);
+
+            const res = await CreateMoves(jsonData);
+
+            if (res) {
+                router.push('/');
+                router.refresh();
+            } else {
+                throw new Error('Failed to create the imported moves.')
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -45,7 +61,7 @@ const FileImport = () => {
         <div className="flex justify-center bg-slate-100">
             <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-3 w-7/12 p-5">
                 <input type="file" accept=".xls,.xlsx" onChange={handleFileUpload} />
-                <pre>{JSON.stringify(jsonData, null, 2)}</pre>
+
                 <Button type="submit"
                     className="mt-2 
                     w-1/2.5 

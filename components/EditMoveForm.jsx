@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -40,38 +38,41 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
         return validateAmount(newAmount) ? false : true;
     }, [newAmount]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const newDate = new Date(
-                updatedDate.year,
-                updatedDate.month - 1,
-                updatedDate.day
-            ).toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric"
-            });
+        useEffect(() => {
+            try {
+                const newDate = new Date(
+                    updatedDate.year,
+                    updatedDate.month - 1,
+                    updatedDate.day
+                ).toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric"
+                });
 
-            const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType }),
-            });
+                const res = fetch(`http://localhost:3000/api/moves/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType }),
+                });
 
-            if (!res.ok) {
-                throw new Error("Failed to update move.");
+                if (!res.ok) {
+                    throw new Error("Failed to update move.");
+                }
+
+                router.push("/");
+                router.refresh();
+            } catch (error) {
+                console.log("Error");
             }
-
-            router.push("/");
-            router.refresh();
-        } catch (error) {
-            console.log("Error");
-        }
+        }, []);
     };
+
 
     return (
         <div className="flex justify-center bg-slate-100">

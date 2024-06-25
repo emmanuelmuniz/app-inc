@@ -44,6 +44,8 @@ export default function MovesList() {
                             })
                     };
 
+                    console.log(response)
+
                     fetchCategories();
                 }, []);
         };

@@ -5,30 +5,23 @@ import Move from "../../../models/move";
 export const dynamic = "force-dynamic";
 
 export async function POST(request) {
-    let { detail, date, amount, category, moveType } = await request.json();
-    let move = {
-        detail: detail,
-        date: date,
-        amount: amount,
-        category: category,
-        moveType: moveType
+    try {
+        const moves = await request.json();
+        console.log(moves);
+
+        await connectMongoDB();
+
+        await Move.insertMany(moves);
+
+        return NextResponse.json({ message: "Moves created" }, { status: 201 });
+    } catch (error) {
+        console.error("Error creating moves:", error);
+        return NextResponse.json({ error: "Failed to create moves" }, { status: 500 });
     }
-    move.amount = move.amount.replace(",", ".");
-    console.log(move)
-    await connectMongoDB();
-    await Move.create(move);
-    return NextResponse.json({ message: "Move created" }, { status: 201 });
 }
 
 export async function GET() {
     await connectMongoDB();
     const moves = await Move.find();
     return NextResponse.json({ moves });
-}
-
-export async function DELETE(request) {
-    const id = request.nextUrl.searchParams.get("id");
-    await connectMongoDB();
-    await Move.findByIdAndDelete(id);
-    return NextResponse.json({ message: "Move deleted." });
 }

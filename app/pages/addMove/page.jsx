@@ -66,7 +66,7 @@ export default function AddMove() {
                 const date = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
                     .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
 
-                const res = await fetch('http://localhost:3000/api/moves', {
+                const res = await fetch('http://localhost:3000/api/moves/move', {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
