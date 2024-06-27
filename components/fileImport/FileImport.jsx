@@ -4,9 +4,12 @@ import Papa from 'papaparse';
 import { Button } from "@nextui-org/button";
 import CVSMoveJSONToDBJSON from "../../app/utils/CVSMoveJSONToDBJSON"
 import { CreateMoves } from '/app/api/moves/requests'
+import { useRouter } from "next/navigation";
 
+import './styles.css';
 
 const FileImport = () => {
+    const router = useRouter();
     const [jsonData, setJsonData] = useState([]);
 
     const handleFileUpload = (event) => {
@@ -33,7 +36,7 @@ const FileImport = () => {
             });
         };
 
-        reader.readAsArrayBuffer(file); // Lee el archivo como ArrayBuffer
+        reader.readAsArrayBuffer(file);
     };
 
     const handleSubmit = async (e) => {
@@ -43,7 +46,7 @@ const FileImport = () => {
             console.log(jsonData);
 
             const res = await CreateMoves(jsonData);
-
+            console.log(res)
             if (res) {
                 router.push('/');
                 router.refresh();
@@ -59,8 +62,11 @@ const FileImport = () => {
 
     return (
         <div className="flex justify-center bg-slate-100">
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-3 w-7/12 p-5">
-                <input type="file" accept=".xls,.xlsx" onChange={handleFileUpload} />
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-3 w-7/12 p-5 ">
+
+                <div className="file-input-container bg-white rounded-lg text-center">
+                    <input type="file" className="file-input bg-white rounded-lg py-5 w-full" accept=".xls,.xlsx" onChange={handleFileUpload} />
+                </div>
 
                 <Button type="submit"
                     className="mt-2 

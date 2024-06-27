@@ -1,0 +1,12 @@
+.move-row {
+    height: 3.2rem;
+    max-height: 3.2rem;
+}
+
+
+.fixed-column {
+    width: 150px; /* Ajusta este valor según tus necesidades */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

@@ -10,20 +10,20 @@ export default async function Categories() {
     return (
         <div>
             <div className="flex w-full justify-center">
-                <table className="w-1/2 table-auto rounded-lg overflow-hidden m-2">
+                <table className="w-1/3 table-auto rounded-lg overflow-hidden m-2">
                     <thead>
                         <tr className='font-bold text-white bg-teal rounded-sm'>
-                            <th className="p-3 text-left">Categoria</th>
-                            <th className="p-3 text-center">Acciones</th>
+                            <th className="p-3 pl-5 text-left">Categoria</th>
+                            <th className="p-2 text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {categories.map(category => (
-                            <tr className='text-left border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
-                                <td className='p-3 text-left'>
+                            <tr className='text-left border-slate-300  transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
+                                <td className='p-3 pl-5 text-left'>
                                     {category.category}
                                 </td>
-                                <td className='p-3 text-center grid grid-cols-2'>
+                                <td className='p-2 text-center grid grid-cols-2 mt-1'>
                                     <RemoveCategory id={category._id} className='mx-1' />
                                     <Link className='mx-1 hover:opacity-70 duration-300 flex justify-center' href={`/pages/categories/${category._id}`}>
                                         <HiPencilAlt title="Editar" size={24} />

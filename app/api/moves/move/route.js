@@ -5,13 +5,14 @@ import Move from "../../../../models/move";
 export const dynamic = "force-dynamic";
 
 export async function POST(request) {
-    let { detail, date, amount, category, moveType } = await request.json();
+    let { detail, date, amount, category, moveType, payMethod } = await request.json();
     let move = {
         detail: detail,
         date: date,
         amount: amount,
         category: category,
-        moveType: moveType
+        moveType: moveType,
+        payMethod: payMethod
     }
     move.amount = move.amount.replace(",", ".");
     console.log(move)

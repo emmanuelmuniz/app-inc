@@ -10,7 +10,6 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { GetCategories } from '../../api/categories/requests'
 
-
 async function fetchCategories() {
     const { categories } = await GetCategories();
     return categories;
@@ -18,11 +17,11 @@ async function fetchCategories() {
 
 export default function AddMove() {
     const router = useRouter();
-
     const [categories, setCategories] = useState([]);
     const [detail, setDetail] = useState("");
     const [amount, setAmount] = useState("");
     const [moveType, setMoveType] = useState("");
+    const [payMethod, setPayMethod] = useState("");
     const [categoryObject, setCategory] = useState({
         _id: "",
         category: "",
@@ -34,7 +33,16 @@ export default function AddMove() {
         { value: "Egreso", label: "Egreso" }
     ];
 
-    
+    const payMethodItems = [
+        { value: "Banco BBVA", label: "Banco BBVA" },
+        { value: "Efectivo", label: "Efectivo" },
+        { value: "MP INC.", label: "MP INC." },
+        { value: "MP Marcos", label: "MP Marcos" }
+    ];
+
+    const notify = () => toast("Movimiento creado.");
+
+
     useEffect(() => {
         fetchCategories().then(data => setCategories(data));
     }, []);
@@ -71,7 +79,7 @@ export default function AddMove() {
                     headers: {
                         "Content-type": "application/json"
                     },
-                    body: JSON.stringify({ detail, amount, date, category, moveType })
+                    body: JSON.stringify({ detail, amount, date, category, moveType, payMethod })
                 });
 
                 if (res.ok) {
@@ -117,6 +125,20 @@ export default function AddMove() {
                         value={moveDate}
                     />
                 </div>
+                <Select
+                    label="Medio de pago"
+                    placeholder="Seleccionar"
+                    className="m-1"
+                    onChange={(e) => setPayMethod(e.target.value)}
+                    value={payMethod}
+                    isRequired
+                >
+                    {payMethodItems.map((payMethodItem) => (
+                        <SelectItem key={payMethodItem.value} value={payMethodItem.value}>
+                            {payMethodItem.label}
+                        </SelectItem>
+                    ))}
+                </Select>
                 <Select
                     label="Categoría"
                     placeholder="Seleccionar"

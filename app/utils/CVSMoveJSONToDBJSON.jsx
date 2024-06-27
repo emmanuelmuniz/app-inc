@@ -3,20 +3,19 @@ const CVSMoveJSONToDBJSON = (data) => {
         let newMove = {};
 
         newMove = {
-            detail: "Detalle: " + move['Detalle'] + ". Concepto: " + move['Concepto'] + ".",
+            detail: "Detalle: " + move['Detalle'] + " Concepto: " + move['Concepto'] + ".",
             date: move['Fecha'],
             amount: Number((move['Crédito'] + move['Débito']).replace(/[,-]/g, '')),
             category: {
-                category: "Banco BBVA",
-                _id: "667adbcc43d6d5fa7826e146"
+                category: "Definir",
+                _id: "667d6350063995d05eeab037"
             },
-            moveType: 'Ingreso'
+            moveType: 'Ingreso',
+            payMethod: "Banco BBVA"
         }
 
-        if (move['Crédito'] === "")
-            move['moveType'] = "Egreso";
-
-
+        if (move['Crédito'] == "")
+            newMove['moveType'] = "Egreso";
 
         return newMove;
     });
