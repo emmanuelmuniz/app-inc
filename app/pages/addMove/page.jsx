@@ -5,10 +5,11 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { DateInput } from "@nextui-org/date-input";
 import { Input } from "@nextui-org/input";
-import { today, getLocalTimeZone, parseDate } from "@internationalized/date";
+import { today, getLocalTimeZone } from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import { GetCategories } from '../../api/categories/requests'
+import { GetCategories } from '../../api/categories/requests';
+import FormatDate from "../../../app/utils/DateFormatter";
 
 async function fetchCategories() {
     const { categories } = await GetCategories();
@@ -40,9 +41,6 @@ export default function AddMove() {
         { value: "MP Marcos", label: "MP Marcos" }
     ];
 
-    const notify = () => toast("Movimiento creado.");
-
-
     useEffect(() => {
         fetchCategories().then(data => setCategories(data));
     }, []);
@@ -69,10 +67,10 @@ export default function AddMove() {
                     _id: categoryObject._id
                 }
 
-                console.log(category)
-
-                const date = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
+                const dateToAdd = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
                     .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
+
+                const date = FormatDate(dateToAdd);
 
                 const res = await fetch('http://localhost:3000/api/moves/move', {
                     method: "POST",

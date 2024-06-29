@@ -1,21 +1,34 @@
+"use client"
+
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { DateInput } from "@nextui-org/date-input";
 import { Input } from "@nextui-org/input";
 import { parseDate } from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
+import { GetCategories } from '../app/api/categories/requests';
+import FormatDate from "../app/utils/DateFormatter";
 
-export default function EditMoveForm({ id, detail, amount, date, moveType }) {
+async function fetchCategories() {
+    const { categories } = await GetCategories();
+    return categories;
+}
 
+export default function EditMoveForm({ id, detail, amount, date, moveType, category, payMethod }) {
     const [newDetail, setDetail] = useState(detail);
-    const [newAmount, setAmount] = useState(amount.toString());
+    const [newAmount, setAmount] = useState(amount.toString().replace(/[.]/g, ','));
     const [newMoveType, setMoveType] = useState(moveType);
+    const [newPayMethod, setPayMethod] = useState(payMethod);
+    const [newCategory, setCategory] = useState({
+        _id: category._id,
+        category: category.category,
+    });
 
-    const parts = date.split("/");
+    const parts = date.split("-");
     const day = parseInt(parts[0]);
-    const month = parseInt(parts[1]) - 1;
+    const month = parseInt(parts[1]);
     const year = parseInt(parts[2]);
 
     const dateObject = new Date(year, month, day);
@@ -28,6 +41,19 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
         { value: "Egreso", label: "Egreso" }
     ];
 
+    const payMethodItems = [
+        { value: "Banco BBVA", label: "Banco BBVA" },
+        { value: "Efectivo", label: "Efectivo" },
+        { value: "MP INC.", label: "MP INC." },
+        { value: "MP Marcos", label: "MP Marcos" }
+    ];
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetchCategories().then(data => setCategories(data));
+    }, []);
+
     const router = useRouter();
 
     const validateAmount = (newAmount) => newAmount.match(/^\d{1,}(?:,\d{1,2})?$/);
@@ -38,39 +64,40 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
         return validateAmount(newAmount) ? false : true;
     }, [newAmount]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        useEffect(() => {
-            try {
-                const newDate = new Date(
-                    updatedDate.year,
-                    updatedDate.month - 1,
-                    updatedDate.day
-                ).toLocaleDateString("es-ES", {
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric"
-                });
+        try {
+            const date = new Date(
+                updatedDate.year,
+                updatedDate.month - 1,
+                updatedDate.day
+            ).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric"
+            });
 
-                const res = fetch(`http://localhost:3000/api/moves/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                    body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType }),
-                });
+            const newDate = FormatDate(date);
 
-                if (!res.ok) {
-                    throw new Error("Failed to update move.");
-                }
+            const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType, newCategory, newPayMethod }),
+            });
 
-                router.push("/");
-                router.refresh();
-            } catch (error) {
-                console.log("Error");
+            if (!res.ok) {
+                console.log(res)
+                throw new Error("Failed to update move.");
             }
-        }, []);
+
+            router.push("/");
+            router.refresh();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
 
@@ -114,6 +141,40 @@ export default function EditMoveForm({ id, detail, amount, date, moveType }) {
                     {moveTypeItems.map((moveTypeItem) => (
                         <SelectItem key={moveTypeItem.value} value={moveTypeItem.value}>
                             {moveTypeItem.label}
+                        </SelectItem>
+                    ))}
+                </Select>
+                <Select
+                    label="Categoría"
+                    placeholder="Seleccionar"
+                    className="m-1"
+                    defaultSelectedKeys={[newCategory._id]}
+                    onChange={(e) => {
+                        const selectedCategoryId = e.target.value;
+                        const selectedCategory = categories.find(
+                            (newCategory) => newCategory._id === selectedCategoryId
+                        );
+                        setCategory(selectedCategory);
+                    }}
+                    value={newCategory._id}
+                >
+                    {categories.map((categoryItem) => (
+                        <SelectItem key={categoryItem._id} value={categoryItem}>
+                            {categoryItem.category}
+                        </SelectItem>
+                    ))}
+                </Select>
+                <Select
+                    defaultSelectedKeys={[`${payMethod}`]}
+                    label="Método de pago"
+                    onChange={(e) => setPayMethod(e.target.value)}
+                    value={newPayMethod}
+                    isRequired
+                    className="m-1"
+                >
+                    {payMethodItems.map((payMethodItem) => (
+                        <SelectItem key={payMethodItem.value} value={payMethodItem.value}>
+                            {payMethodItem.label}
                         </SelectItem>
                     ))}
                 </Select>

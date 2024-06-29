@@ -28,11 +28,12 @@ export default function MovesList() {
     const [moveTypeFilter, setMoveTypeFilter] = useState("all");
     const [payMethodFilter, setPayMethodFilter] = useState("all");
 
+    // Get Moves and categories
     useEffect(() => {
         const fetchData = async () => {
             await GetMoves()
                 .then((response) => {
-                    setMoves(response.moves)
+                    setMoves(response.moves);
 
                     const fetchCategories = async () => {
                         await GetCategories()
@@ -42,8 +43,6 @@ export default function MovesList() {
                                 setIsLoading(false);
                             })
                     };
-
-                    console.log(response)
 
                     fetchCategories();
                 }, []);
@@ -64,8 +63,27 @@ export default function MovesList() {
         fetchData();
     }, []);
 
+    // Sort data by date
+    const parseDate = (dateString) => {
+        const [day, month, year] = dateString.split('-');
+        return new Date(`${year}-${month}-${day}`);
+    };
+
+    // Función para ordenar los datos por fecha
+    const sortByDateMoves = useMemo(() => {
+        const sortedData = [...moves].sort((b, a) => {
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
+            return dateA - dateB;
+        });
+
+        return sortedData;
+    });
+
+
+    // Filters
     const filteredItems = useMemo(() => {
-        let filteredMoves = [...moves];
+        let filteredMoves = [...sortByDateMoves];
 
         if (moveTypeFilter !== "all" && Array.from(moveTypeFilter).length !== moveTypeOptions.length) {
             filteredMoves = filteredMoves.filter((move) =>
@@ -88,6 +106,7 @@ export default function MovesList() {
         return filteredMoves;
     }, [moves, categoryFilter, moveTypeFilter, payMethodFilter]);
 
+    // Pagination
     const [page, setPage] = useState(1);
     const rowsPerPage = 10;
 
@@ -105,6 +124,7 @@ export default function MovesList() {
         currency: 'ARS',
     });
 
+    // Fill cells if rows are less than rows per page
     const filledMoves = [...movesToShowInPage];
     while (filledMoves.length < rowsPerPage) {
         filledMoves.push({
@@ -118,14 +138,15 @@ export default function MovesList() {
         });
     }
 
+    // Truncate text if it's very large
     const fixedColumnLength = 20;
 
     const adjustCellContent = (content, length) => {
         if (content) {
             if (content.length > length) {
-                return content.slice(0, length - 3) + '...'; // Trunca y añade puntos suspensivos
+                return content.slice(0, length - 3) + '...';
             }
-            return content.padEnd(length, ' '); // Rellena con espacios si es corto
+            return content.padEnd(length, ' ');
         };
     }
 
@@ -134,7 +155,7 @@ export default function MovesList() {
             {isLoading && <LoadingDisplay />}
             {isDataLoaded &&
                 <div className="max-w-* rounded-lg overflow-hidden">
-                    <div className="relative flex justify-end items-center gap-5 mb-2 p-3 pr-0">
+                    <div className="relative flex justify-end items-center gap-2 mb-2 p-3 pr-0">
                         <Dropdown>
                             <DropdownTrigger>
                                 <Button className='bg-teal text-white'>
@@ -210,12 +231,12 @@ export default function MovesList() {
                                     <th className='p-3 text-left'>Medio de pago</th>
                                     <th className='p-3 text-left'>Categoría</th>
                                     <th className='p-3 text-left'>Detalle</th>
-                                    <th className='p-3 pr-6 text-left'>Acciones</th>
+                                    <th className='p-3 pr-6 text-center'>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
-                                    <tr key={m._id} className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
+                                    <tr key={m._id} className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
                                         <td className='p-3 pl-6 text-left'>{m.date}</td>
                                         <td className='p-3 text-left '>
                                             {(m.amount ? formatter.format(m.amount) : '')}
@@ -225,7 +246,7 @@ export default function MovesList() {
                                         <td className='p-3 text-left'>{m.category ? m.category.category : ''}</td>
                                         <td className='p-3 text-left fixed-column'>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
 
-                                        <td className='p-3 pr-6 text-left grid grid-cols-2'>
+                                        <td className='p-3 pr-6 text-center grid grid-cols-2 place-items-center'>
                                             {m.detail && (
                                                 <>
                                                     <RemoveButton id={m._id} className='mx-1' />

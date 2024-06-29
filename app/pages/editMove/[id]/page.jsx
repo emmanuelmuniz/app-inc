@@ -1,3 +1,5 @@
+"use client"
+
 import EditMoveForm from "@/components/EditMoveForm"
 
 const getMoveById = async (id) => {
@@ -5,8 +7,6 @@ const getMoveById = async (id) => {
         const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
             cache: "no-store"
         });
-
-        console.log("---Si entro en edit...");
 
         if (!res.ok) {
             throw new Error("Failed to fetch Move.");
@@ -20,13 +20,10 @@ const getMoveById = async (id) => {
 }
 
 export default async function EditMove({ params }) {
-    const { id } = params;
-    const [move, setMove] = useState({});
-    const { detail, amount, date, moveType } = move;
 
-    useEffect(() => {
-        setMove(getMoveById(id));
-    }, []);
+    const { id } = params;
+    const { move } = await getMoveById(id);
+    const { detail, amount, date, moveType, category, payMethod } = move;
 
     return <div className="max-w-* bg-lavender rounded-lg p-3">
         <EditMoveForm
@@ -34,6 +31,8 @@ export default async function EditMove({ params }) {
             detail={detail}
             amount={amount}
             date={date}
-            moveType={moveType} />
+            moveType={moveType}
+            category={category}
+            payMethod={payMethod} />
     </div>
 }
