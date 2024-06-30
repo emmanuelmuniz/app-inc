@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import {
     Navbar,
@@ -5,26 +7,32 @@ import {
     NavbarContent,
     NavbarItem
 } from "@nextui-org/navbar";
+import { useSession } from "next-auth/react";
 
 export default function NavbarApp() {
+
+    const { data: session } = useSession();
+
     return (
         <>
-            <Navbar className="rounded-lg bg-teal mt-4 px-0">
-                <NavbarBrand>
-                    <Link className="text-white font-bold text-lg" href={'/'}>Movimientos</Link>
-                </NavbarBrand>
-                <NavbarContent justify="end" className="-mr-10">
-                    <NavbarItem className="text-white font-bold mx-2">
-                        <Link href={'/pages/addMove'}>Crear Movimiento</Link>
-                    </NavbarItem>
-                    <NavbarItem className="text-white font-bold mx-2">
-                        <Link href={'/pages/categories'}>Categorías</Link>
-                    </NavbarItem>
-                    <NavbarItem className="text-white font-bold ml-2">
-                        <Link href={'/pages/fileImport'}>Importar Movimientos</Link>
-                    </NavbarItem>
-                </NavbarContent>
-            </Navbar>
+            {session && (
+                <Navbar className="rounded-lg bg-teal mt-4 px-0">
+                    <NavbarBrand>
+                        <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Movimientos</Link>
+                    </NavbarBrand>
+                    <NavbarContent justify="end" className="-mr-10">
+                        <NavbarItem className="text-white font-bold mx-2">
+                            <Link href={'/pages/addMove'}>Crear Movimiento</Link>
+                        </NavbarItem>
+                        <NavbarItem className="text-white font-bold mx-2">
+                            <Link href={'/pages/categories'}>Categorías</Link>
+                        </NavbarItem>
+                        <NavbarItem className="text-white font-bold ml-2">
+                            <Link href={'/pages/fileImport'}>Importar Movimientos</Link>
+                        </NavbarItem>
+                    </NavbarContent>
+                </Navbar>
+            )}
         </>
     )
 }
