@@ -13,6 +13,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
+// import { useSession } from "next-auth/react";
 
 import './styles.css';
 
@@ -27,6 +28,8 @@ export default function MovesList() {
     const [categoryFilter, setCategoryFilter] = useState("all");
     const [moveTypeFilter, setMoveTypeFilter] = useState("all");
     const [payMethodFilter, setPayMethodFilter] = useState("all");
+
+    // const { data: session } = useSession({ required: true });
 
     // Get Moves and categories
     useEffect(() => {

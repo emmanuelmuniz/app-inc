@@ -1,9 +1,13 @@
 "use client";
 
 import React from 'react'
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { Input } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
+import { useSession } from "next-auth/react";
+import "./styles.css";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
@@ -11,6 +15,7 @@ export default function LoginForm() {
     const [error, setError] = useState("");
 
     const router = useRouter();
+    const { data: session, update } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,27 +30,47 @@ export default function LoginForm() {
                 return;
             }
 
-            router.replace("dashboard");
+            const newSession = {
+                ...session,
+                user: {
+                    ...session?.user,
+                    email: email
+                },
+            };
+
+            await update(newSession).then(() => {
+                router.push("/pages/dashboard");
+            });
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <div className="grid place-items-center">
-            <div className="shadow-lg p-5 rounded-lg border-t-4 border-teal">
-                <h1 className='text-xl font-bold my-4'>Enter the details</h1>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                    <input onChange={e => setEmail(e.target.value)} type="text" placeholder="Email" />
-                    <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
-                    <button>Ingresar</button>
-                    {error && (
-                        <div className="bg-red-500 text-white rounded-md mt-2 p-2 px-3 w-fit text-sm">
-                            {error}
-                        </div>
-                    )}
+        <div className="max-w-md mx-auto p-4 text-center">
+            <div className="mb-4 p-4 rounded-lg bg-lavender">
+                <h1 className="text-2xl font-bold text-teal my-4">Iniciar sesión</h1>
+                <form onSubmit={handleSubmit} className="">
+                    <Input
+                        onChange={e => setEmail(e.target.value)}
+                        type="text"
+                        placeholder="Email"
+                        className="p-2"
+                    />
+                    <Input
+                        onChange={e => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Contraseña"
+                        className="p-2"
+                    />
+                    <Button type="submit" className="my-4 bg-teal font-bold text-white rounded-lg">Ingresar</Button>
                 </form>
             </div>
+            {error && (
+                <div className="bg-red-500 font-bold text-white rounded-md mt-2 p-2 px-3 w-fit text-sm">
+                    {error}
+                </div>
+            )}
         </div>
-    )
+    );
 }

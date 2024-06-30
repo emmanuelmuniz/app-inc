@@ -10,7 +10,6 @@ import {
 import { useSession } from "next-auth/react";
 
 export default function NavbarApp() {
-
     const { data: session } = useSession();
 
     return (
@@ -18,7 +17,7 @@ export default function NavbarApp() {
             {session && (
                 <Navbar className="rounded-lg bg-teal mt-4 px-0">
                     <NavbarBrand>
-                        <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Movimientos</Link>
+                        <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
                     </NavbarBrand>
                     <NavbarContent justify="end" className="-mr-10">
                         <NavbarItem className="text-white font-bold mx-2">
