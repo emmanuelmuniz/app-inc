@@ -100,7 +100,6 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
         }
     };
 
-
     return (
         <div className="flex justify-center bg-slate-100">
             <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-3 w-7/12 p-5">

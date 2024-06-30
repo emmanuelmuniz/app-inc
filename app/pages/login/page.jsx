@@ -1,20 +1,12 @@
-import EditMoveForm from "@/components/EditMoveForm"
+import LoginForm from "@/components/auth/LoginForm"
+import { authOptions } from "../../api/auth/[...nextauth]/route"
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default async function EditMove({ params }) {
-    const { id } = params;
-    const [move, setMove] = useState({});
-    const { detail, amount, date, moveType } = move;
+export default async function Login() {
+    const session = await getServerSession(authOptions);
 
-    useEffect(() => {
-        setMove(getMoveById(id));
-    }, []);
+    if (session) redirect("/dashboard");
 
-    return <div className="max-w-* bg-lavender rounded-lg p-3">
-        <EditMoveForm
-            id={id}
-            detail={detail}
-            amount={amount}
-            date={date}
-            moveType={moveType} />
-    </div>
+    return <LoginForm />
 }

@@ -11,7 +11,7 @@ export default function NavbarApp() {
         <>
             <Navbar className="rounded-lg bg-teal mt-4 px-0">
                 <NavbarBrand>
-                    <Link className="text-white font-bold text-lg" href={'/'}>Finance Tracker</Link>
+                    <Link className="text-white font-bold text-lg" href={'/'}>Movimientos</Link>
                 </NavbarBrand>
                 <NavbarContent justify="end" className="-mr-10">
                     <NavbarItem className="text-white font-bold mx-2">
@@ -25,23 +25,6 @@ export default function NavbarApp() {
                     </NavbarItem>
                 </NavbarContent>
             </Navbar>
-
-            {/* <nav className="flex justify-between items-center
-        bg-gunmetal px-8 py-3 rounded-lg overflow-hidden">
-                <Link className="text-white font-bold" href={'/'}>Finance Tracker</Link>
-                <Link className="p-2 
-                rounded-lg 
-                bg-teal 
-                overflow-hidden 
-                text-white 
-                font-bold 
-                text-sm 
-                transition-colors
-                duration-300 
-                ease-in-out 
-                hover:bg-teal-hover"
-                    href={'/pages/addMove'}>Crear Movimiento</Link>
-            </nav> */}
         </>
     )
 }
