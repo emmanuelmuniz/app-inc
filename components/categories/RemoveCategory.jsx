@@ -3,13 +3,15 @@
 import { HiOutlineTrash } from "react-icons/hi"
 import { useRouter } from "next/navigation"
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function RemoveCategory({ id }) {
     const router = useRouter();
     const removeCategory = async () => {
         const confirmed = confirm("¿Estás seguro?");
 
         if (confirmed) {
-            const res = await fetch(`http://localhost:3000/api/categories?id=${id}`, {
+            const res = await fetch(`${apiUrl}api/categories?id=${id}`, {
                 method: "DELETE",
             });
 

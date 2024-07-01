@@ -1,6 +1,8 @@
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export async function GetMoves() {
     try {
-        const res = await fetch('http://localhost:3000/api/moves', {
+        const res = await fetch(`${apiUrl}api/moves`, {
             cache: 'no-store'
         });
 
@@ -17,7 +19,7 @@ export async function GetMoves() {
 
 export async function CreateMoves(moves) {
     try {
-        const res = await fetch('http://localhost:3000/api/moves', {
+        const res = await fetch(`${apiUrl}api/moves`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"

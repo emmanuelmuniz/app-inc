@@ -9,7 +9,7 @@ export default function RemoveButton({ id }) {
         const confirmed = confirm("¿Estás seguro?");
 
         if (confirmed) {
-            const res = await fetch(`http://localhost:3000/api/moves/move?id=${id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/moves/move?id=${id}`, {
                 method: "DELETE",
             });
 

@@ -16,6 +16,8 @@ async function fetchCategories() {
     return categories;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function EditMoveForm({ id, detail, amount, date, moveType, category, payMethod }) {
     const [newDetail, setDetail] = useState(detail);
     const [newAmount, setAmount] = useState(amount.toString().replace(/[.]/g, ','));
@@ -80,7 +82,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
 
             const newDate = FormatDate(date);
 
-            const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
+            const res = await fetch(`${apiUrl}api/moves/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json",

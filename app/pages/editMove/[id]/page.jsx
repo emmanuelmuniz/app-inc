@@ -2,9 +2,11 @@
 
 import EditMoveForm from "@/components/EditMoveForm"
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const getMoveById = async (id) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/moves/${id}`, {
+        const res = await fetch(`${apiUrl}api/moves/${id}`, {
             cache: "no-store"
         });
 

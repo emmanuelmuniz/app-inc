@@ -16,6 +16,8 @@ async function fetchCategories() {
     return categories;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function AddMove() {
     const router = useRouter();
     const [categories, setCategories] = useState([]);
@@ -72,7 +74,7 @@ export default function AddMove() {
 
                 const date = FormatDate(dateToAdd);
 
-                const res = await fetch('http://localhost:3000/api/moves/move', {
+                const res = await fetch(`${apiUrl}api/moves/move`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"

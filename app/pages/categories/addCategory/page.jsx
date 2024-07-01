@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
+const apiUrl = process.env.NEXTAPI_URL;
+
 export default function AddCategory() {
     const [category, setCategory] = useState("");
 
@@ -18,7 +20,7 @@ export default function AddCategory() {
             alert("Todos los datos son requeridos para crear un nuevo movimiento.");
         } else {
             try {
-                const res = await fetch('http://localhost:3000/api/categories', {
+                const res = await fetch(`${apiUrl}api/categories`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
