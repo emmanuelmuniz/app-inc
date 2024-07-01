@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
-export default function addCategory() {
+export default function AddCategory() {
     const [category, setCategory] = useState("");
 
     const router = useRouter();
