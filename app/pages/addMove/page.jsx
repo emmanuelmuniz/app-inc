@@ -83,7 +83,7 @@ export default function AddMove() {
                 });
 
                 if (res.ok) {
-                    router.push('/');
+                    router.push('/pages/moves');
                     router.refresh();
                 } else {
                     throw new Error('Failed to create a new Move')

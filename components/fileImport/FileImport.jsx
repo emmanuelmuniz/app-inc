@@ -48,7 +48,7 @@ const FileImport = () => {
             const res = await CreateMoves(jsonData);
             console.log(res)
             if (res) {
-                router.push('/');
+                router.push('/pages/moves');
                 router.refresh();
             } else {
                 throw new Error('Failed to create the imported moves.')

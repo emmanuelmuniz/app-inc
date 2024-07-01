@@ -20,9 +20,9 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en" className={"bg-ghost-white " + inter.className}>
-      <body className="bg-ghost-white min-h-100">
+      <body className="bg-ghost-white min-h-80">
         <SessionProviderClientComponent session={session}>
-          <div className="max-w-6xl mx-auto p-2">
+          <div className="max-w-5xl mx-auto p-2">
             <NavbarApp />
             <div className="mt-4 max-w-*">{children}</div>
           </div>

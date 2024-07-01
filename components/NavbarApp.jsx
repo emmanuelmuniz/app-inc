@@ -19,7 +19,7 @@ export default function NavbarApp() {
                     <NavbarBrand>
                         <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
                     </NavbarBrand>
-                    <NavbarContent justify="end" className="-mr-10">
+                    <NavbarContent justify="end" className="-mr-1">
                         <NavbarItem className="text-white font-bold mx-2">
                             <Link href={'/pages/addMove'}>Crear Movimiento</Link>
                         </NavbarItem>
