@@ -15,7 +15,7 @@ export async function PUT(req, { params }) {
         await Move.findByIdAndUpdate(id, { detail, date, amount, moveType, category, payMethod });
         return NextResponse.json({ message: "Move edited." }, { status: 200 });
     } else {
-        return NextResponse.json({ message: "Move edited." }, { status: 200 });
+        return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
     }
 }
 
@@ -27,6 +27,6 @@ export async function GET(req, { params }) {
         const move = await Move.findOne({ _id: id });
         return NextResponse.json({ move }, { status: 200 });
     } else {
-        return NextResponse.json({ message: "Move edited." }, { status: 200 });
+        return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
     }
 }

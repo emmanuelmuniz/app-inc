@@ -5,10 +5,10 @@ import { getToken } from "next-auth/jwt"
 
 export const dynamic = "force-dynamic";
 
-export async function POST(request) {
-    const token = await getToken({ request });
+export async function POST(req) {
+    const token = await getToken({ req });
     if (token) {
-        let { detail, date, amount, category, moveType, payMethod } = await request.json();
+        let { detail, date, amount, category, moveType, payMethod } = await req.json();
         let move = {
             detail: detail,
             date: date,
@@ -23,7 +23,7 @@ export async function POST(request) {
         await Move.create(move);
         return NextResponse.json({ message: "Move created" }, { status: 201 });
     } else {
-
+        return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
     }
 }
 
@@ -35,6 +35,6 @@ export async function DELETE(req) {
         await Move.findByIdAndDelete(id);
         return NextResponse.json({ message: "Move deleted." });
     } else {
-
+        return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
     }
 }
