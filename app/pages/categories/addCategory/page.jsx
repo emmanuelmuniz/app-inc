@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
-const apiUrl = process.env.NEXTAPI_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AddCategory() {
     const [category, setCategory] = useState("");
@@ -32,7 +32,7 @@ export default function AddCategory() {
                     router.push('/pages/categories');
                     router.refresh();
                 } else {
-                    throw new Error('Failed to create a new Move')
+                    throw new Error('Failed to create a new Category')
                 }
             } catch (error) {
                 console.log(error);
