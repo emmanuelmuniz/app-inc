@@ -13,13 +13,13 @@ export default async function Categories() {
                 <table className="w-1/3 table-auto rounded-lg overflow-hidden m-2">
                     <thead>
                         <tr className='font-bold text-white bg-teal rounded-sm'>
-                            <th className="p-3 pl-5 text-left">Categoria</th>
-                            <th className="p-2 text-center">Acciones</th>
+                            <th key={"category"} className="p-3 pl-5 text-left">Categoria</th>
+                            <th key={"actions"} className="p-2 text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {categories.map(category => (
-                            <tr className='text-left border-slate-300  transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
+                            <tr key={category._id} className='text-left border-slate-300  transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
                                 <td className='p-3 pl-5 text-left'>
                                     {category.category}
                                 </td>

@@ -228,13 +228,13 @@ export default function MovesList() {
                         <table className='w-full table-auto rounded-lg overflow-hidden h-full'>
                             <thead className=''>
                                 <tr className='font-bold text-white bg-teal rounded-sm'>
-                                    <th className='p-3 pl-6 text-left'>Fecha</th>
-                                    <th className='p-3 text-left'>Monto</th>
-                                    <th className='p-3 text-left'>Tipo de mov.</th>
-                                    <th className='p-3 text-left'>Medio de pago</th>
-                                    <th className='p-3 text-left'>Categoría</th>
-                                    <th className='p-3 text-left'>Detalle</th>
-                                    <th className='p-3 pr-6 text-center'>Acciones</th>
+                                    <th key={"date"} className='p-3 pl-6 text-left'>Fecha</th>
+                                    <th key={"amount"} className='p-3 text-left'>Monto</th>
+                                    <th key={"moveType"} className='p-3 text-left'>Tipo de mov.</th>
+                                    <th key={"payMethod"} className='p-3 text-left'>Medio de pago</th>
+                                    <th key={"category"} className='p-3 text-left'>Categoría</th>
+                                    <th key={"detail"} className='p-3 text-left'>Detalle</th>
+                                    <th key={"actions"} className='p-3 pr-6 text-center'>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className='h-100'>
