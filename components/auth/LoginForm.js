@@ -9,7 +9,7 @@ import { Button } from "@nextui-org/button";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 
-export default function LoginForm() {
+export default function     LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -30,17 +30,7 @@ export default function LoginForm() {
                 return;
             }
 
-            const newSession = {
-                ...session,
-                user: {
-                    ...session?.user,
-                    email: email
-                },
-            };
-
-            await update(newSession).then(() => {
-                router.push("/pages/dashboard");
-            });
+            router.replace("/pages/dashboard");
         } catch (error) {
             console.log(error);
         }
