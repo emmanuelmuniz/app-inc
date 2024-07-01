@@ -30,7 +30,7 @@ export default function     LoginForm() {
                 return;
             }
 
-            router.replace("/pages/dashboard");
+            router.push("/pages/moves");
         } catch (error) {
             console.log(error);
         }
