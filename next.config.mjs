@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-nextConfig = {
+const nextConfig = {
     async headers() {
         return [
             {
