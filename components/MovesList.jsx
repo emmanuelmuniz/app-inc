@@ -13,7 +13,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
-// import { useSession } from "next-auth/react";
 
 import './styles.css';
 

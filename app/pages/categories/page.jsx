@@ -1,11 +1,24 @@
+"use client"
+
 import { Button } from "@nextui-org/button";
 import Link from "next/link"
 import { GetCategories } from '../../api/categories/requests'
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveCategory from '@/components/categories/RemoveCategory'
+import { useEffect, useState } from 'react';
 
 export default async function Categories() {
-    const { categories } = await GetCategories();
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            await GetCategories()
+                .then((response) => {
+                    setCategories(response.categories)
+                })
+        };
+        fetchCategories();
+    }, []);
 
     return (
         <div>

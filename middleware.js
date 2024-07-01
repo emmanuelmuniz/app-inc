@@ -8,5 +8,7 @@ export const config = {
         "/pages/addMove",
         "/pages/editMove",
         "/pages/fileImport",
+        // "/api/moves",
+        // "/api/categories"
     ]
 };

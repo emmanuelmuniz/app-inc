@@ -11,7 +11,6 @@ export async function GetMoves() {
         }
 
         return res.json();
-
     } catch (error) {
         console.log("Error loading moves: ", error);
     }
