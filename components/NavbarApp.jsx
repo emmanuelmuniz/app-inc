@@ -20,14 +20,17 @@ export default function NavbarApp() {
                         <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
                     </NavbarBrand>
                     <NavbarContent justify="end" className="-mr-1">
-                        <NavbarItem className="text-white font-bold mx-2">
+                        <NavbarItem className="text-white font-bold mx-2 text-sm">
                             <Link href={'/pages/addMove'}>Crear Movimiento</Link>
                         </NavbarItem>
-                        <NavbarItem className="text-white font-bold mx-2">
+                        <NavbarItem className="text-white font-bold mx-2 text-sm">
                             <Link href={'/pages/categories'}>Categorías</Link>
                         </NavbarItem>
-                        <NavbarItem className="text-white font-bold ml-2">
+                        <NavbarItem className="text-white font-bold ml-2 text-sm">
                             <Link href={'/pages/fileImport'}>Importar Movimientos</Link>
+                        </NavbarItem>
+                        <NavbarItem className="text-white font-bold ml-2 text-sm">
+                            <Link href={'/pages/dashboard'}>Ver Perfil</Link>
                         </NavbarItem>
                     </NavbarContent>
                 </Navbar>
