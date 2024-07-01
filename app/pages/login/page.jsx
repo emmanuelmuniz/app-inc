@@ -1,5 +1,5 @@
 import LoginForm from "@/components/auth/LoginForm"
-import { authOptions } from "../../api/auth/[...nextauth]/route"
+import authOptions from "../../api/auth/authOptions/authOptions"
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
