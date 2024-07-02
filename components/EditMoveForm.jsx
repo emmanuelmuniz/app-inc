@@ -95,7 +95,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
                 throw new Error("Failed to update move.");
             }
 
-            router.push("/");
+            router.push("/pages/moves");
             router.refresh();
         } catch (error) {
             console.log(error);

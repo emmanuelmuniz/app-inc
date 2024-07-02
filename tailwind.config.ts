@@ -52,5 +52,6 @@ const config: Config = {
   plugins: [nextui({
     addCommonColors: true,
   }),],
+  mode: 'jit',
 };
 export default config;
