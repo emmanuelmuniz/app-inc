@@ -218,14 +218,14 @@ export default function MovesList() {
                     <div className='max-w-* h-100vh rounded-lg overflow-hidden'>
                         <table className='w-full table-auto rounded-lg overflow-hidden h-full'>
                             <thead className=''>
-                                <tr className='font-bold text-white bg-teal rounded-sm'>
-                                    <th key={"date"} className='p-3 pl-6 text-left'>Fecha</th>
-                                    <th key={"amount"} className='p-3 text-left'>Monto</th>
-                                    <th key={"moveType"} className='p-3 text-left'>Tipo de mov.</th>
-                                    <th key={"payMethod"} className='p-3 text-left'>Medio de pago</th>
-                                    <th key={"category"} className='p-3 text-left'>Categoría</th>
-                                    <th key={"detail"} className='p-3 text-left'>Detalle</th>
-                                    <th key={"actions"} className='p-3 pr-6 text-center'>Acciones</th>
+                                <tr className='text-white  text-md bg-teal rounded-sm'>
+                                    <th key={"date"} className='font-normal p-3 pl-6 text-left'>Fecha</th>
+                                    <th key={"amount"} className='font-normal p-3 text-left'>Monto</th>
+                                    <th key={"moveType"} className='font-normal p-3 text-left'>Tipo de mov.</th>
+                                    <th key={"payMethod"} className='font-normal p-3 text-left'>Medio de pago</th>
+                                    <th key={"category"} className='font-normal p-3 text-left'>Categoría</th>
+                                    <th key={"detail"} className='font-normal p-3 text-left'>Detalle</th>
+                                    <th key={"actions"} className='font-normal p-3 pr-6 text-center'>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className='h-100'>

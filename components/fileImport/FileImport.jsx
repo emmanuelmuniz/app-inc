@@ -78,7 +78,7 @@ const FileImport = () => {
                     hover:bg-columbia-blue-hover 
                     bg-teal 
                     text-white 
-                    font-bold">
+                    font-semibold">
                     Importar movimientos
                 </Button>
             </form>

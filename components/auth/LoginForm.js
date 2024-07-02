@@ -39,7 +39,7 @@ export default function     LoginForm() {
     return (
         <div className="max-w-md mx-auto p-4 text-center">
             <div className="mb-4 p-4 rounded-lg bg-lavender">
-                <h1 className="text-2xl font-bold text-teal my-4">Iniciar sesión</h1>
+                <h1 className="text-2xl font-semibold text-teal my-4">Iniciar sesión</h1>
                 <form onSubmit={handleSubmit} className="">
                     <Input
                         onChange={e => setEmail(e.target.value)}
@@ -53,11 +53,11 @@ export default function     LoginForm() {
                         placeholder="Contraseña"
                         className="p-2"
                     />
-                    <Button type="submit" className="my-4 bg-teal font-bold text-white rounded-lg">Ingresar</Button>
+                    <Button type="submit" className="my-4 bg-teal font-semibold text-white rounded-lg">Ingresar</Button>
                 </form>
             </div>
             {error && (
-                <div className="bg-red-500 font-bold text-white rounded-md mt-2 p-2 px-3 w-fit text-sm">
+                <div className="bg-red-500 font-semibold text-white rounded-md mt-2 p-2 px-3 w-fit text-sm">
                     {error}
                 </div>
             )}

@@ -173,7 +173,7 @@ export default function AddMove() {
                     ))}
                 </Select>
                 <Button type="submit" className="mt-2 w-1/2.5 p-3 self-center
-                    bg-teal text-white font-bold 
+                    bg-teal text-white font-semibold 
                     transition-colors duration-300 ease-in-out 
                     hover:bg-columbia-blue-hover ">
                     Crear Movimiento

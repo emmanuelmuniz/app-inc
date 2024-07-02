@@ -13,14 +13,14 @@ export default function UserInfo() {
                 <div className="grid place-items-center">
                     <div className="flex-col gap-2 mt-12 bg-lavender p-7 rounded-md">
                         <div className="my-2">
-                            Nombre: <span className="font-bold mx-1">{session?.user?.name}</span>
+                            Nombre: <span className="font-semibold mx-1">{session?.user?.name}</span>
                         </div>
                         <div className="my-2">
-                            Email: <span className="font-bold mx-1">{session?.user?.email}</span>
+                            Email: <span className="font-semibold mx-1">{session?.user?.email}</span>
                         </div>
                         <Button
                             onClick={() => signOut()}
-                            className="mt-3 font-bold text-white bg-teal">Cerrar sesión
+                            className="mt-3 font-semibold text-white bg-teal">Cerrar sesión
                         </Button>
                     </div>
                 </div>

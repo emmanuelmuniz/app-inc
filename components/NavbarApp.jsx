@@ -17,19 +17,19 @@ export default function NavbarApp() {
             {session && (
                 <Navbar className="rounded-lg bg-teal mt-4 px-0">
                     <NavbarBrand>
-                        <Link className="text-white font-bold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
+                        <Link className="text-white font-semibold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
                     </NavbarBrand>
                     <NavbarContent justify="end" className="-mr-1">
-                        <NavbarItem className="text-white font-bold mx-2 text-sm">
+                        <NavbarItem className="text-white font-semibold mx-2 text-sm">
                             <Link href={'/pages/addMove'}>Crear Movimiento</Link>
                         </NavbarItem>
-                        <NavbarItem className="text-white font-bold mx-2 text-sm">
+                        <NavbarItem className="text-white font-semibold mx-2 text-sm">
                             <Link href={'/pages/categories'}>Categorías</Link>
                         </NavbarItem>
-                        <NavbarItem className="text-white font-bold ml-2 text-sm">
+                        <NavbarItem className="text-white font-semibold ml-2 text-sm">
                             <Link href={'/pages/fileImport'}>Importar Movimientos</Link>
                         </NavbarItem>
-                        <NavbarItem className="text-white font-bold ml-2 text-sm">
+                        <NavbarItem className="text-white font-semibold ml-2 text-sm">
                             <Link href={'/pages/dashboard'}>Ver Perfil</Link>
                         </NavbarItem>
                     </NavbarContent>

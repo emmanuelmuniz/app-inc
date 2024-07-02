@@ -29,9 +29,9 @@ export default async function Categories() {
                 <div className="flex w-full justify-center">
                     <table className="w-1/3 table-auto rounded-lg overflow-hidden m-2">
                         <thead>
-                            <tr className='font-bold text-white bg-teal rounded-sm'>
-                                <th key={"category"} className="p-3 pl-5 text-left">Categoria</th>
-                                <th key={"actions"} className="p-2 text-center">Acciones</th>
+                            <tr className='text-white bg-teal rounded-sm'>
+                                <th key={"category"} className="font-normal p-3 pl-5 text-left">Categoria</th>
+                                <th key={"actions"} className="font-normal p-2 text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +53,7 @@ export default async function Categories() {
                     </table>
 
                     <Button type="submit" className="w-1/2.5 m-2 py-3
-                    bg-teal text-white font-bold 
+                    bg-teal text-white font-semibold 
                     transition-colors duration-300 ease-in-out 
                     hover:bg-columbia-blue-hover ">
                         <Link href={'/pages/categories/addCategory'}>Crear Categoría</Link>

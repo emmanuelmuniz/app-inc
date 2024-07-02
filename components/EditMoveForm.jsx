@@ -189,7 +189,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
                     hover:bg-columbia-blue-hover 
                     bg-teal 
                     text-white 
-                    font-bold">
+                    font-semibold">
                     Actualizar Movimiento
                 </Button>
             </form>
