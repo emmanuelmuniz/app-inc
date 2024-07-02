@@ -1,32 +1,40 @@
 "use client"
 
-import RemoveButton from '@/components/RemoveButton'
-import LoadingDisplay from '@/components/LoadingDisplay'
-import Link from "next/link"
+import { useState, useEffect, useMemo } from 'react';
 import { HiPencilAlt, HiChevronDown } from 'react-icons/hi';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
+import { Divider } from "@nextui-org/divider";
+import { Button } from "@nextui-org/button";
+import { Pagination } from "@nextui-org/pagination";
+
 import { GetMoves } from '../app/api/moves/requests'
 import { GetCategories } from '../app/api/categories/requests'
 
+import RemoveButton from '@/components/RemoveButton'
+import LoadingDisplay from '@/components/LoadingDisplay'
+import MoveModal from '@/components/moveModal/MoveModal'
+import Link from "next/link"
 import Balance from '@/components/Balance'
-import { Divider } from "@nextui-org/divider";
-import { useState, useEffect, useMemo } from 'react';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
-import { Pagination } from "@nextui-org/pagination";
+
+import { moveTypes, payMethods } from "@/app/data/Data.js"
+import Formatter from "@/app/utils/AmountFormatter"
 
 import './styles.css';
 
 export default function MovesList() {
     const [moves, setMoves] = useState([]);
     const [categoriesOptions, setCategoriesOptions] = useState([]);
-    const [moveTypeOptions, setMoveTypeOptions] = useState([]);
-    const [payMethodOptions, setPayMethodOptions] = useState([]);
+    const [moveTypeOptions, setMoveTypeOptions] = useState(moveTypes);
+    const [payMethodOptions, setPayMethodOptions] = useState(payMethods);
 
     const [isLoading, setIsLoading] = useState(true);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [categoryFilter, setCategoryFilter] = useState("all");
     const [moveTypeFilter, setMoveTypeFilter] = useState("all");
     const [payMethodFilter, setPayMethodFilter] = useState("all");
+
+    const [selectedElement, setSelectedElement] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // const { data: session } = useSession({ required: true });
 
@@ -45,23 +53,9 @@ export default function MovesList() {
                                 setIsLoading(false);
                             })
                     };
-
                     fetchCategories();
                 }, []);
         };
-
-        setMoveTypeOptions([
-            { value: "Ingreso", label: "Ingreso" },
-            { value: "Egreso", label: "Egreso" }
-        ]);
-
-        setPayMethodOptions([
-            { value: "Banco BBVA", label: "Banco BBVA" },
-            { value: "Efectivo", label: "Efectivo" },
-            { value: "MP INC.", label: "MP INC." },
-            { value: "MP Marcos", label: "MP Marcos" }
-        ]);
-
         fetchData();
     }, []);
 
@@ -71,7 +65,6 @@ export default function MovesList() {
         return new Date(`${year}-${month}-${day}`);
     };
 
-    // Función para ordenar los datos por fecha
     const sortByDateMoves = useMemo(() => {
         const sortedData = [...moves].sort((b, a) => {
             const dateA = parseDate(a.date);
@@ -121,22 +114,12 @@ export default function MovesList() {
         return filteredItems.slice(start, end);
     }, [page, filteredItems]);
 
-    const formatter = new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS',
-    });
-
     // Fill cells if rows are less than rows per page
     const filledMoves = [...movesToShowInPage];
     while (filledMoves.length < rowsPerPage) {
         filledMoves.push({
-            column1: '',
-            column2: '',
-            column3: '',
-            column4: '',
-            column5: '',
-            column6: '',
-            column7: ''
+            column1: '', column2: '', column3: '', column4: '',
+            column5: '', column6: '', column7: ''
         });
     }
 
@@ -152,11 +135,23 @@ export default function MovesList() {
         };
     }
 
+    const handleSelectedElement = (element) => {
+        setSelectedElement(element);
+        setIsModalOpen(true);
+        console.log(selectedElement)
+        console.log(isModalOpen)
+        
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedElement(null);
+    };
     return (
         <>
             {isLoading && <LoadingDisplay />}
             {isDataLoaded &&
-                <div className="max-w-* rounded-lg overflow-hidden">
+                <div className="max-w-* rounded-lg overflow-hidden onClick">
                     <div className="relative flex justify-end items-center gap-2 mb-2 p-3 pr-0">
                         <Dropdown>
                             <DropdownTrigger>
@@ -238,10 +233,10 @@ export default function MovesList() {
                             </thead>
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
-                                    <tr key={m._id} className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
+                                    <tr key={m._id} onClick={() => handleSelectedElement(m)} className='cursor-pointer move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
                                         <td className='p-3 pl-6 text-left'>{m.date}</td>
                                         <td className='p-3 text-left '>
-                                            {(m.amount ? formatter.format(m.amount) : '')}
+                                            {(m.amount ? Formatter.format(m.amount) : '')}
                                         </td>
                                         <td className='p-3 text-left'>{m.moveType}</td>
                                         <td className='p-3 text-left'>{m.payMethod}</td>
@@ -263,18 +258,24 @@ export default function MovesList() {
                             </tbody>
                         </table>
 
+                        {selectedElement &&
+                            <MoveModal
+                                isModalOpen={isModalOpen}
+                                move={selectedElement}
+                                onClose={handleCloseModal} />
+                        }
+
                         <Pagination
                             className='mt-3 grid justify-items-center pagination-bar'
                             isCompact
                             showControls
                             showShadow
-                            color="teal"
+                            color="black"
                             page={page}
                             total={pages}
                             onChange={(page) => setPage(page)}
                         />
                     </div>
-
 
                     <Divider className="my-4" />
                     <div className="bg-white p-5 rounded-lg mb-10">

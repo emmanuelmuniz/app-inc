@@ -3,10 +3,13 @@
     max-height: 3.2rem;
 }
 
-
 .fixed-column {
-    width: 150px; /* Ajusta este valor según tus necesidades */
+    width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
+
+.pagination-bar .active{
+    color: black !important;
+}

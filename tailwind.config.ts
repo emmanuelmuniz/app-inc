@@ -6,7 +6,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|date-picker|divider|dropdown|input|navbar|pagination|select|table|ripple|spinner|calendar|date-input|popover|menu|listbox|scroll-shadow|checkbox|spacer).js"
+    "./node_modules/@nextui-org/theme/dist/components/(button|date-picker|divider|dropdown|input|modal|navbar|pagination|select|table|ripple|spinner|calendar|date-input|popover|menu|listbox|scroll-shadow|checkbox|spacer).js"
   ],
   theme: {
     extend: {
@@ -45,13 +45,16 @@ const config: Config = {
       'silver': '#ecebff',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
-      'ghost-white': '#E8EBFF'
+      'ghost-wh. ite': '#E8EBFF',
+      'primary': '#1f7a8c'
     },
   },
   darkMode: "class",
-  plugins: [nextui({
-    addCommonColors: true,
-  }),],
+  plugins: [
+    nextui({
+      addCommonColors: true,
+    }),
+  ],
   mode: 'jit',
 };
 export default config;
