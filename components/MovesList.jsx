@@ -137,10 +137,7 @@ export default function MovesList() {
 
     const handleSelectedElement = (element) => {
         setSelectedElement(element);
-        setIsModalOpen(true);
-        console.log(selectedElement)
-        console.log(isModalOpen)
-        
+        setIsModalOpen(true);        
     };
 
     const handleCloseModal = () => {
@@ -234,14 +231,14 @@ export default function MovesList() {
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
                                     <tr key={m._id} onClick={() => handleSelectedElement(m)} className='cursor-pointer move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
-                                        <td className='p-3 pl-6 text-left'>{m.date}</td>
-                                        <td className='p-3 text-left '>
+                                        <td className='p-3 pl-6 text-left text-sm'>{m.date}</td>
+                                        <td className='p-3 text-left text-sm'>
                                             {(m.amount ? Formatter.format(m.amount) : '')}
                                         </td>
-                                        <td className='p-3 text-left'>{m.moveType}</td>
-                                        <td className='p-3 text-left'>{m.payMethod}</td>
-                                        <td className='p-3 text-left'>{m.category ? m.category.category : ''}</td>
-                                        <td className='p-3 text-left fixed-column'>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
+                                        <td className='p-3 text-left text-sm'>{m.moveType}</td>
+                                        <td className='p-3 text-left text-sm'>{m.payMethod}</td>
+                                        <td className='p-3 text-left text-sm'>{m.category ? m.category.category : ''}</td>
+                                        <td className='p-3 text-left fixed-column text-sm'>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
 
                                         <td className='p-3 pr-6 text-center grid grid-cols-2 place-items-center'>
                                             {m.detail && (
@@ -270,7 +267,7 @@ export default function MovesList() {
                             isCompact
                             showControls
                             showShadow
-                            color="black"
+                            color="teal"
                             page={page}
                             total={pages}
                             onChange={(page) => setPage(page)}

@@ -9,7 +9,3 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.pagination-bar .active{
-    color: black !important;
-}
