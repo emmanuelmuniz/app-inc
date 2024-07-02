@@ -137,7 +137,7 @@ export default function MovesList() {
 
     const handleSelectedElement = (element) => {
         setSelectedElement(element);
-        setIsModalOpen(true);        
+        setIsModalOpen(true);
     };
 
     const handleCloseModal = () => {
@@ -230,8 +230,8 @@ export default function MovesList() {
                             </thead>
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
-                                    <tr key={m._id} style={m.detail ? { cursor: 'pointer' } : {}} 
-                                    className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
+                                    <tr key={m._id} style={m.detail ? { cursor: 'pointer' } : {}}
+                                        className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
                                         <td className='p-3 pl-6 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.date}</td>
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>
                                             {(m.amount ? Formatter.format(m.amount) : '')}

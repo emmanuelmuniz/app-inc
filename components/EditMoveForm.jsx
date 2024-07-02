@@ -30,7 +30,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
 
     const parts = date.split("-");
     const day = parseInt(parts[0]);
-    const month = parseInt(parts[1]);
+    const month = parseInt(parts[1] - 1);
     const year = parseInt(parts[2]);
 
     const dateObject = new Date(year, month, day);
