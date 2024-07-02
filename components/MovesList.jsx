@@ -149,7 +149,7 @@ export default function MovesList() {
             {isLoading && <LoadingDisplay />}
             {isDataLoaded &&
                 <div className="max-w-* rounded-lg overflow-hidden onClick">
-                    <div className="relative flex justify-end items-center gap-2 mb-2 p-3 pr-0">
+                    <div className="relative flex justify-end items-center gap-2 p-3 pr-0">
                         <Dropdown>
                             <DropdownTrigger>
                                 <Button className='bg-teal text-white'>
@@ -230,15 +230,16 @@ export default function MovesList() {
                             </thead>
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
-                                    <tr key={m._id} className='cursor-pointer move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
-                                        <td className='p-3 pl-6 text-left text-sm' onClick={() => handleSelectedElement(m)}>{m.date}</td>
-                                        <td className='p-3 text-left text-sm' onClick={() => handleSelectedElement(m)}>
+                                    <tr key={m._id} style={m.detail ? { cursor: 'pointer' } : {}} 
+                                    className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
+                                        <td className='p-3 pl-6 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.date}</td>
+                                        <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>
                                             {(m.amount ? Formatter.format(m.amount) : '')}
                                         </td>
-                                        <td className='p-3 text-left text-sm' onClick={() => handleSelectedElement(m)}>{m.moveType}</td>
-                                        <td className='p-3 text-left text-sm' onClick={() => handleSelectedElement(m)}>{m.payMethod}</td>
-                                        <td className='p-3 text-left text-sm' onClick={() => handleSelectedElement(m)}>{m.category ? m.category.category : ''}</td>
-                                        <td className='p-3 text-left fixed-column text-sm' onClick={() => handleSelectedElement(m)}>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
+                                        <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.moveType}</td>
+                                        <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.payMethod}</td>
+                                        <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.category ? m.category.category : ''}</td>
+                                        <td className='p-3 text-left fixed-column text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
 
                                         <td className='p-3 pr-6 text-center grid grid-cols-2 place-items-center'>
                                             {m.detail && (
