@@ -3,7 +3,9 @@ const CVSMoveJSONToDBJSON = (data) => {
         let newMove = {};
 
         newMove = {
-            detail: "Detalle: " + move['Detalle'] + " Concepto: " + move['Concepto'] + ".",
+            detail:
+                (move['Concepto'] !== undefined ? "Concepto: " + move['Concepto'] + ". " : "") +
+                (move['Detalle'] !== undefined ? "Detalle: " + move['Detalle'] : ""),
             date: move['Fecha'],
             amount: Number((move['Crédito'] + move['Débito']).replace(/[,-]/g, '')),
             category: {
