@@ -44,6 +44,7 @@ export default function MovesList() {
             await GetMoves()
                 .then((response) => {
                     setMoves(response.moves);
+                    console.log(response.moves);
 
                     const fetchCategories = async () => {
                         await GetCategories()
@@ -51,6 +52,7 @@ export default function MovesList() {
                                 setCategoriesOptions(response.categories)
                                 setIsDataLoaded(true);
                                 setIsLoading(false);
+
                             })
                     };
                     fetchCategories();
@@ -60,15 +62,10 @@ export default function MovesList() {
     }, []);
 
     // Sort data by date
-    const parseDate = (dateString) => {
-        const [day, month, year] = dateString.split('-');
-        return new Date(`${year}-${month}-${day}`);
-    };
-
     const sortByDateMoves = useMemo(() => {
         const sortedData = [...moves].sort((b, a) => {
-            const dateA = parseDate(a.date);
-            const dateB = parseDate(b.date);
+            const dateA = new Date(a.updatedAt);
+            const dateB = new Date(b.updatedAt);
             return dateA - dateB;
         });
 
