@@ -44,8 +44,6 @@ export default function MovesList() {
             await GetMoves()
                 .then((response) => {
                     setMoves(response.moves);
-                    console.log(response.moves);
-
                     const fetchCategories = async () => {
                         await GetCategories()
                             .then((response) => {
