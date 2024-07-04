@@ -13,6 +13,7 @@ const moveSchema = new Schema(
         category: categorySchema,
         moveType: String,
         payMethod: String,
+        lastUpdateBy: String,
     },
     {
         timestamps: true,

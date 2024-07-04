@@ -9,10 +9,16 @@ export async function PUT(req, { params }) {
     const token = await getToken({ req });
     if (token) {
         let { id } = params;
-        let { newDetail: detail, newDate: date, newAmount: amount, newMoveType: moveType, newCategory: category, newPayMethod: payMethod } = await req.json();
+        let { newDetail: detail,
+            newDate: date,
+            newAmount: amount,
+            newMoveType: moveType,
+            newCategory: category,
+            newPayMethod: payMethod,
+            newLastUpdateBy: lastUpdateBy } = await req.json();
         amount = amount.replace(",", ".");
         await connectMongoDB();
-        await Move.findByIdAndUpdate(id, { detail, date, amount, moveType, category, payMethod });
+        await Move.findByIdAndUpdate(id, { detail, date, amount, moveType, category, payMethod, lastUpdateBy });
         return NextResponse.json({ message: "Move edited." }, { status: 200 });
     } else {
         return NextResponse.json({ message: "Not Authotized" }, { status: 401 });

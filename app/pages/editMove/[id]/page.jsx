@@ -1,6 +1,8 @@
 "use client"
 
 import EditMoveForm from "@/components/EditMoveForm"
+import { useSession } from "next-auth/react";
+
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -21,7 +23,8 @@ const getMoveById = async (id) => {
     }
 }
 
-export default async function EditMove({ params }) {
+export default async function EditMoqve({ params }) {
+    const { data: session } = useSession({ required: true });
 
     const { id } = params;
     const { move } = await getMoveById(id);
@@ -35,6 +38,7 @@ export default async function EditMove({ params }) {
             date={date}
             moveType={moveType}
             category={category}
-            payMethod={payMethod} />
+            payMethod={payMethod}
+            lastUpdateBy={session.user.name} />
     </div>
 }

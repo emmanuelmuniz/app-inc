@@ -5,10 +5,13 @@ import { Button } from "@nextui-org/button";
 import CVSMoveJSONToDBJSON from "../../app/utils/CVSMoveJSONToDBJSON"
 import { CreateMoves } from '/app/api/moves/requests'
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import './styles.css';
 
 const FileImport = () => {
+    const { data: session } = useSession({ required: true });
+
     const router = useRouter();
     const [jsonData, setJsonData] = useState([]);
 
@@ -30,7 +33,7 @@ const FileImport = () => {
             Papa.parse(rows, {
                 header: true,
                 complete: (results) => {
-                    const parsedData = CVSMoveJSONToDBJSON(results.data);
+                    const parsedData = CVSMoveJSONToDBJSON(results.data, session.user.name);
                     setJsonData(parsedData);
                 },
             });

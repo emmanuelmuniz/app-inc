@@ -8,14 +8,15 @@ export const dynamic = "force-dynamic";
 export async function POST(req) {
     const token = await getToken({ req });
     if (token) {
-        let { detail, date, amount, category, moveType, payMethod } = await req.json();
+        let { detail, date, amount, category, moveType, payMethod, userName } = await req.json();
         let move = {
             detail: detail,
             date: date,
             amount: amount,
             category: category,
             moveType: moveType,
-            payMethod: payMethod
+            payMethod: payMethod,
+            lastUpdateBy: userName
         }
         move.amount = move.amount.replace(",", ".");
         console.log(move)

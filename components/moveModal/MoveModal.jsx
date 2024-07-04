@@ -70,12 +70,22 @@ export default function MoveModal({ isModalOpen, move, onClose }) {
                                         </div>
                                     </div>
                                     <Divider className="my-4" />
+                                    {move.lastUpdateBy &&
+                                        <div className="flex justify-between items-center">
+                                            <div className="w-1/2 text-left">
+                                                <p className="text-md">Ultima modificación por:</p>
+                                            </div>
+                                            <div className="w-1/2 text-right">
+                                                <p className="text-md">{move.lastUpdateBy}</p>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <ModalFooter>
                                 <Button color="teal" className="bg-teal text-white" onPress={closeModal}>
                                     Cerrar
-                                </Button>   
+                                </Button>
                             </ModalFooter>
                         </>
                     )}

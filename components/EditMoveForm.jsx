@@ -18,15 +18,17 @@ async function fetchCategories() {
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export default function EditMoveForm({ id, detail, amount, date, moveType, category, payMethod }) {
+export default function EditMoveForm({ id, detail, amount, date, moveType, category, payMethod, lastUpdateBy }) {
     const [newDetail, setDetail] = useState(detail);
     const [newAmount, setAmount] = useState(amount.toString().replace(/[.]/g, ','));
     const [newMoveType, setMoveType] = useState(moveType);
     const [newPayMethod, setPayMethod] = useState(payMethod);
+    const [newLastUpdateBy, setLastUpdateBy] = useState(lastUpdateBy);
     const [newCategory, setCategory] = useState({
         _id: category._id,
         category: category.category,
     });
+
 
     const parts = date.split("-");
     const day = parseInt(parts[0]);
@@ -87,7 +89,7 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
                 headers: {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType, newCategory, newPayMethod }),
+                body: JSON.stringify({ newDetail, newAmount, newDate, newMoveType, newCategory, newPayMethod, newLastUpdateBy }),
             });
 
             if (!res.ok) {

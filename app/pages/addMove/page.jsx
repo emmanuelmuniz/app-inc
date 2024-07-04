@@ -10,6 +10,7 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { GetCategories } from '../../api/categories/requests';
 import FormatDate from "../../../app/utils/DateFormatter";
+import { useSession } from "next-auth/react";
 
 async function fetchCategories() {
     const { categories } = await GetCategories();
@@ -19,6 +20,8 @@ async function fetchCategories() {
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AddMove() {
+    const { data: session } = useSession({ required: true });
+
     const router = useRouter();
     const [categories, setCategories] = useState([]);
     const [detail, setDetail] = useState("");
@@ -69,6 +72,8 @@ export default function AddMove() {
                     _id: categoryObject._id
                 }
 
+                const userName = session.user.name;
+
                 const dateToAdd = new Date(moveDate.year, moveDate.month - 1, moveDate.day)
                     .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
 
@@ -79,7 +84,7 @@ export default function AddMove() {
                     headers: {
                         "Content-type": "application/json"
                     },
-                    body: JSON.stringify({ detail, amount, date, category, moveType, payMethod })
+                    body: JSON.stringify({ detail, amount, date, category, moveType, payMethod, userName })
                 });
 
                 if (res.ok) {

@@ -1,4 +1,4 @@
-const CVSMoveJSONToDBJSON = (data) => {
+const CVSMoveJSONToDBJSON = (data, user) => {
     return data.map(move => {
         let newMove = {};
 
@@ -13,7 +13,8 @@ const CVSMoveJSONToDBJSON = (data) => {
                 _id: "667d6350063995d05eeab037"
             },
             moveType: 'Ingreso',
-            payMethod: "Banco BBVA"
+            payMethod: "Banco BBVA",
+            lastUpdateBy: user
         }
 
         if (move['Crédito'] == "")
