@@ -6,6 +6,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-o
 import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
+import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
 
 import { GetMoves } from '../app/api/moves/requests'
 import { GetCategories } from '../app/api/categories/requests'
@@ -23,7 +24,8 @@ import './styles.css';
 
 export default function MovesList() {
     const [moves, setMoves] = useState([]);
-    const [categoriesOptions, setCategoriesOptions] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const categoriesOptions = useSortCategoriesByName(categories);
     const [moveTypeOptions, setMoveTypeOptions] = useState(moveTypes);
     const [payMethodOptions, setPayMethodOptions] = useState(payMethods);
 
@@ -47,11 +49,10 @@ export default function MovesList() {
                     const fetchCategories = async () => {
                         await GetCategories()
                             .then((response) => {
-                                setCategoriesOptions(response.categories)
+                                setCategories(response.categories);
                                 setIsDataLoaded(true);
                                 setIsLoading(false);
-
-                            })
+                            });
                     };
                     fetchCategories();
                 }, []);
@@ -60,7 +61,6 @@ export default function MovesList() {
     }, []);
 
     // Sort data by date
-
     const parseDate = (dateString) => {
         const [day, month, year] = dateString.split('-');
         return new Date(`${year}-${month}-${day}`);
@@ -149,11 +149,11 @@ export default function MovesList() {
         <>
             {isLoading && <LoadingDisplay />}
             {isDataLoaded &&
-                <div className="max-w-* rounded-lg overflow-hidden onClick">
+                <div className="max-w-* rounded-md overflow-hidden onClick">
                     <div className="relative flex justify-end items-center gap-2 p-3 pr-0">
                         <Dropdown>
                             <DropdownTrigger>
-                                <Button className='bg-teal text-white'>
+                                <Button className='bg-teal text-white' radius='sm'>
                                     Tipo de Movimiento <HiChevronDown />
                                 </Button>
                             </DropdownTrigger>
@@ -174,7 +174,7 @@ export default function MovesList() {
                         </Dropdown>
                         <Dropdown>
                             <DropdownTrigger>
-                                <Button className='bg-teal text-white'>
+                                <Button className='bg-teal text-white' radius='sm'>
                                     Medio de pago <HiChevronDown />
                                 </Button>
                             </DropdownTrigger>
@@ -195,7 +195,7 @@ export default function MovesList() {
                         </Dropdown>
                         <Dropdown>
                             <DropdownTrigger>
-                                <Button className='bg-teal text-white'>
+                                <Button className='bg-teal text-white' radius='sm'>
                                     Categorías <HiChevronDown />
                                 </Button>
                             </DropdownTrigger>
@@ -216,8 +216,8 @@ export default function MovesList() {
                         </Dropdown>
                     </div>
 
-                    <div className='max-w-* h-100vh rounded-lg overflow-hidden'>
-                        <table className='w-full table-auto rounded-lg overflow-hidden h-full'>
+                    <div className='max-w-* h-100vh rounded-md overflow-hidden'>
+                        <table className='w-full table-auto rounded-md overflow-hidden h-full'>
                             <thead className=''>
                                 <tr className='text-white  text-md bg-teal rounded-sm'>
                                     <th key={"date"} className='font-normal p-3 pl-6 text-left'>Fecha</th>
@@ -232,7 +232,7 @@ export default function MovesList() {
                             <tbody className='h-100'>
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
                                     <tr key={m._id} style={m.detail ? { cursor: 'pointer' } : {}}
-                                        className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-silver'>
+                                        className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-silver even:bg-white'>
                                         <td className='p-3 pl-6 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.date}</td>
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>
                                             {(m.amount ? Formatter.format(m.amount) : '')}
@@ -277,7 +277,7 @@ export default function MovesList() {
                     </div>
 
                     <Divider className="my-4" />
-                    <div className="bg-white p-5 rounded-lg mb-10">
+                    <div className="bg-white rounded-lg mb-10">
                         <Balance moveList={filteredItems} />
                     </div>
                 </div>}

@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className="bg-ghost-white min-h-80">
         <SpeedInsights />
         <SessionProviderClientComponent session={session}>
-          <div className="max-w-5xl mx-auto p-2">
+          <div className="max-w-5xl mx-auto">
             <NavbarApp />
             <div className="mt-4 max-w-*">{children}</div>
           </div>

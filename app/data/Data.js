@@ -7,5 +7,6 @@ export const payMethods = [
     { value: "Banco BBVA", label: "Banco BBVA" },
     { value: "Efectivo", label: "Efectivo" },
     { value: "MP INC.", label: "MP INC." },
-    { value: "MP Marcos", label: "MP Marcos" }
+    { value: "MP Marcos", label: "MP Marcos" },
+    { value: "Definir", label: "Definir" }
 ]

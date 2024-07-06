@@ -1,3 +1,7 @@
+.dropdowon {
+    border-radius: 6px !important;
+}
+
 .move-row {
     height: 3.2rem;
     max-height: 3.2rem;

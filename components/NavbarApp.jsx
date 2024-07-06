@@ -15,7 +15,7 @@ export default function NavbarApp() {
     return (
         <>
             {session && (
-                <Navbar className="rounded-lg bg-teal mt-4 px-0">
+                <Navbar className="bg-teal rounded-b-md px-0">
                     <NavbarBrand>
                         <Link className="text-white font-semibold text-lg" href={'/pages/moves'}>Finance Tracker</Link>
                     </NavbarBrand>

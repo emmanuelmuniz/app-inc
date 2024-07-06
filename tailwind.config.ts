@@ -45,7 +45,7 @@ const config: Config = {
       'silver': '#ecebff',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
-      'ghost-wh. ite': '#E8EBFF',
+      'ghost-white': '#FEFEFE',
       'primary': '#1f7a8c'
     },
   },
