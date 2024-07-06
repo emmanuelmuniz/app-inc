@@ -7,9 +7,11 @@ import { HiPencilAlt } from 'react-icons/hi';
 import RemoveCategory from '@/components/categories/RemoveCategory'
 import { useEffect, useState } from 'react';
 import LoadingDisplay from "../../../components/LoadingDisplay"
+import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
 
 export default async function Categories() {
     const [categories, setCategories] = useState([]);
+    const categoriesSorted = useSortCategoriesByName(categories);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default async function Categories() {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.map(category => (
+                            {categoriesSorted.map(category => (
                                 <tr key={category._id} className='text-left border-slate-300  transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-white even:bg-lavender'>
                                     <td className='p-3 pl-5 text-left'>
                                         {category.category}
