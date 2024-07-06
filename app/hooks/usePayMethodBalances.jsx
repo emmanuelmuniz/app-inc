@@ -16,7 +16,7 @@ export const usePayMethodBalances = (moves, payMethods) => {
                 .reduce((sum, m) => sum + m.amount, 0);
 
             const expense = filteredMoves
-                .filter(m => m.moveType === 'Ingreso')
+                .filter(m => m.moveType === 'Egreso')
                 .reduce((sum, m) => sum + m.amount, 0);
 
             balances.push({
