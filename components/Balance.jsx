@@ -77,7 +77,7 @@ export default function Balance({ moveList }) {
                                     <ul>
                                         <li className="my-2">Ingreso: {formatter.format(item.income)}</li>
                                         <li className="my-2">Gasto: {formatter.format(item.expense)}</li>
-                                        <li className="my-2">Balance: {formatter.format(item.balance)}</li>
+                                        <li className="my-2 font-semibold text-lg">Balance: {formatter.format(item.balance)}</li>
                                     </ul>
                                 </div>
                             ))}
@@ -98,7 +98,7 @@ export default function Balance({ moveList }) {
                                     <ul>
                                         <li className="my-2">Ingreso: *****</li>
                                         <li className="my-2">Gasto: *****</li>
-                                        <li className="my-2">Balance: *****</li>
+                                        <li className="my-2 font-semibold text-lg">Balance: *****</li>
                                     </ul>
                                 </div>
                             ))}
