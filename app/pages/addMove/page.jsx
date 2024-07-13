@@ -11,6 +11,8 @@ import { Button } from "@nextui-org/button";
 import { GetCategories } from '../../api/categories/requests';
 import FormatDate from "../../../app/utils/DateFormatter";
 import { useSession } from "next-auth/react";
+import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
+
 
 async function fetchCategories() {
     const { categories } = await GetCategories();
@@ -33,6 +35,7 @@ export default function AddMove() {
         category: "",
     });
     const [moveDate, setDate] = useState(today(getLocalTimeZone()));
+    const categoriesSorted = useSortCategoriesByName(categories);
 
     const moveTypeItems = [
         { value: "Ingreso", label: "Ingreso" },
@@ -157,7 +160,7 @@ export default function AddMove() {
                     }}
                     value={categoryObject._id}
                 >
-                    {categories.map((categoryItem) => (
+                    {categoriesSorted.map((categoryItem) => (
                         <SelectItem key={categoryItem._id} value={categoryItem}>
                             {categoryItem.category}
                         </SelectItem>
