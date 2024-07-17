@@ -23,8 +23,8 @@ export async function GET(req, { params }) {
     if (token) {
         const { id } = params;
         await connectMongoDB();
-        const Category = await Category.findOne({ _id: id });
-        return NextResponse.json({ Category }, { status: 200 });
+        const category = await Category.findOne({ _id: id });
+        return NextResponse.json({ category }, { status: 200 });
     } else {
         return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
     }
