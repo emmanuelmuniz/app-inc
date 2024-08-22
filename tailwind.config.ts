@@ -52,7 +52,26 @@ const config: Config = {
   darkMode: "class",
   plugins: [
     nextui({
-      addCommonColors: true,
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: "#1f7a8c",
+              foreground: "#fff",
+            },
+            focus: "#BEF264",
+          },
+        },
+        dark: {
+          colors: {
+            primary: {
+              DEFAULT: "#1f7a8c",
+              foreground: "#fff",
+            },
+            focus: "#BEF264",
+          },
+        },
+      },
     }),
   ],
   mode: 'jit',

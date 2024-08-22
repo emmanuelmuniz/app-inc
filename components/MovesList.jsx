@@ -151,80 +151,83 @@ export default function MovesList() {
             {isLoading && <LoadingDisplay />}
             {isDataLoaded &&
                 <div className="max-w-* rounded-md overflow-hidden onClick">
-                    <div className="relative flex justify-end items-center gap-2 p-3 pr-0">
-                        <DateRangePicker
-                            label="Fecha"
-                            className="max-w-xs"
-                            onChange={(range) => handleDateChange(range.start, range.end)}
-                            defaultValue={{
-                                start: today(getLocalTimeZone()).subtract({ days: 7 }),
-                                end: today(getLocalTimeZone())
-                            }}
-
-                        />
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button className='bg-teal text-white' radius='sm'>
-                                    Tipo de Movimiento <HiChevronDown />
-                                </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                disallowEmptySelection
-                                aria-label="Tipo de Movimiento"
-                                closeOnSelect={false}
-                                selectedKeys={moveTypeFilter}
-                                selectionMode="multiple"
-                                onSelectionChange={setMoveTypeFilter}
-                            >
-                                {moveTypeOptions.map((moveType) => (
-                                    <DropdownItem key={moveType.value}>
-                                        {moveType.value}
-                                    </DropdownItem>
-                                ))}
-                            </DropdownMenu>
-                        </Dropdown>
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button className='bg-teal text-white' radius='sm'>
-                                    Medio de pago <HiChevronDown />
-                                </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                disallowEmptySelection
-                                aria-label="Medio de pago"
-                                closeOnSelect={false}
-                                selectedKeys={payMethodFilter}
-                                selectionMode="multiple"
-                                onSelectionChange={setPayMethodFilter}
-                            >
-                                {payMethodOptions.map((payMethod) => (
-                                    <DropdownItem key={payMethod.value}>
-                                        {payMethod.value}
-                                    </DropdownItem>
-                                ))}
-                            </DropdownMenu>
-                        </Dropdown>
-                        <Dropdown>
-                            <DropdownTrigger>
-                                <Button className='bg-teal text-white' radius='sm'>
-                                    Categorías <HiChevronDown />
-                                </Button>
-                            </DropdownTrigger>
-                            <DropdownMenu
-                                disallowEmptySelection
-                                aria-label="Categorías"
-                                closeOnSelect={false}
-                                selectedKeys={categoryFilter}
-                                selectionMode="multiple"
-                                onSelectionChange={setCategoryFilter}
-                            >
-                                {categoriesOptions.map((category) => (
-                                    <DropdownItem key={category._id}>
-                                        {category.category}
-                                    </DropdownItem>
-                                ))}
-                            </DropdownMenu>
-                        </Dropdown>
+                    <div className="relative flex justify-between items-center gap-2 p-3 pl-0 pr-0">
+                        <div className="flex-shrink-0">
+                            <DateRangePicker
+                                label="Rango de Fechas"
+                                color='primary'
+                                onChange={(range) => handleDateChange(range.start, range.end)}
+                                defaultValue={{
+                                    start: today(getLocalTimeZone()).subtract({ days: 7 }),
+                                    end: today(getLocalTimeZone())
+                                }}
+                            />
+                        </div>
+                        <div className="flex gap-2">
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button className='bg-teal text-white' radius='sm'>
+                                        Tipo de Movimiento <HiChevronDown />
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    disallowEmptySelection
+                                    aria-label="Tipo de Movimiento"
+                                    closeOnSelect={false}
+                                    selectedKeys={moveTypeFilter}
+                                    selectionMode="multiple"
+                                    onSelectionChange={setMoveTypeFilter}
+                                >
+                                    {moveTypeOptions.map((moveType) => (
+                                        <DropdownItem key={moveType.value}>
+                                            {moveType.value}
+                                        </DropdownItem>
+                                    ))}
+                                </DropdownMenu>
+                            </Dropdown>
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button className='bg-teal text-white' radius='sm'>
+                                        Medio de pago <HiChevronDown />
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    disallowEmptySelection
+                                    aria-label="Medio de pago"
+                                    closeOnSelect={false}
+                                    selectedKeys={payMethodFilter}
+                                    selectionMode="multiple"
+                                    onSelectionChange={setPayMethodFilter}
+                                >
+                                    {payMethodOptions.map((payMethod) => (
+                                        <DropdownItem key={payMethod.value}>
+                                            {payMethod.value}
+                                        </DropdownItem>
+                                    ))}
+                                </DropdownMenu>
+                            </Dropdown>
+                            <Dropdown>
+                                <DropdownTrigger>
+                                    <Button className='bg-teal text-white' radius='sm'>
+                                        Categorías <HiChevronDown />
+                                    </Button>
+                                </DropdownTrigger>
+                                <DropdownMenu
+                                    disallowEmptySelection
+                                    aria-label="Categorías"
+                                    closeOnSelect={false}
+                                    selectedKeys={categoryFilter}
+                                    selectionMode="multiple"
+                                    onSelectionChange={setCategoryFilter}
+                                >
+                                    {categoriesOptions.map((category) => (
+                                        <DropdownItem key={category._id}>
+                                            {category.category}
+                                        </DropdownItem>
+                                    ))}
+                                </DropdownMenu>
+                            </Dropdown>
+                        </div>
                     </div>
 
                     <div className='max-w-* h-100vh rounded-md overflow-hidden'>

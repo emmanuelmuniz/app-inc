@@ -13,3 +13,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* .dateRangePicker div {
+    background-color: theme('colors.teal');
+    color: white;
+} */
