@@ -146,6 +146,12 @@ export default function MovesList() {
         setIsModalOpen(false);
         setSelectedElement(null);
     };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-ES'); // Ajusta el local según sea necesario
+    };
+
     return (
         <>
             {isLoading && <LoadingDisplay />}
@@ -247,7 +253,8 @@ export default function MovesList() {
                                 {filledMoves.slice(0, rowsPerPage).map(m => (
                                     <tr key={m._id} style={m.detail ? { cursor: 'pointer' } : {}}
                                         className='move-row border-slate-300 transition-colors duration-300 ease-in-out hover:bg-columbia-blue  odd:bg-silver even:bg-white'>
-                                        <td className='p-3 pl-6 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.date}</td>
+                                        <td className='p-3 pl-6 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>
+                                            {m.date ? formatDate(m.date) : ''}</td>
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>
                                             {(m.amount ? Formatter.format(m.amount) : '')}
                                         </td>

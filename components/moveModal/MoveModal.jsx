@@ -16,6 +16,11 @@ export default function MoveModal({ isModalOpen, move, onClose }) {
         onClose();
     }
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-ES'); // Ajusta el local según sea necesario
+    };
+
     return (
         <>
             <Modal isOpen={isOpen}>
@@ -30,7 +35,7 @@ export default function MoveModal({ isModalOpen, move, onClose }) {
                                             <p className="text-md">Fecha del movimiento:</p>
                                         </div>
                                         <div className="w-1/2 text-right">
-                                            <p className="text-md">{move.date}</p>
+                                            <p className="text-md">{formatDate(move.date)}</p>
                                         </div>
                                     </div>
                                     <Divider className="my-4" />
