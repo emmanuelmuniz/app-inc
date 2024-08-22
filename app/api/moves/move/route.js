@@ -9,6 +9,7 @@ export async function POST(req) {
     const token = await getToken({ req });
     if (token) {
         let { detail, date, amount, category, moveType, payMethod, userName } = await req.json();
+        
         let move = {
             detail: detail,
             date: date,

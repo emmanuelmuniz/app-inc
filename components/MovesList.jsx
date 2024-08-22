@@ -7,6 +7,7 @@ import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
 import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
+import { DateRangePicker } from "@nextui-org/date-picker";
 
 import { GetMoves } from '../app/api/moves/requests'
 import { GetCategories } from '../app/api/categories/requests'
@@ -19,6 +20,8 @@ import Balance from '@/components/Balance'
 
 import { moveTypes, payMethods } from "@/app/data/Data.js"
 import Formatter from "@/app/utils/AmountFormatter"
+
+import { parseDate, getLocalTimeZone, today } from "@internationalized/date";
 
 import './styles.css';
 
@@ -38,12 +41,15 @@ export default function MovesList() {
     const [selectedElement, setSelectedElement] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [startDate, setStartDate] = useState(today(getLocalTimeZone()).subtract({ days: 7 }));
+    const [endDate, setEndDate] = useState(today(getLocalTimeZone()));
+
     // const { data: session } = useSession({ required: true });
 
     // Get Moves and categories
     useEffect(() => {
         const fetchData = async () => {
-            await GetMoves()
+            await GetMoves("2024-07-16", "2024-09-30")
                 .then((response) => {
                     setMoves(response.moves);
                     const fetchCategories = async () => {
@@ -60,26 +66,21 @@ export default function MovesList() {
         fetchData();
     }, []);
 
-    // Sort data by date
-    const parseDate = (dateString) => {
-        const [day, month, year] = dateString.split('-');
-        return new Date(`${year}-${month}-${day}`);
+    const handleDateChange = (startDate, endDate) => {
+        if (startDate && endDate) {
+            const fetchData = async () => {
+                await GetMoves(startDate, endDate)
+                    .then((response) => {
+                        setMoves(response.moves);
+                    }, []);
+            };
+            fetchData();
+        }
     };
-
-    const sortByDateMoves = useMemo(() => {
-        const sortedData = [...moves].sort((b, a) => {
-            const dateA = parseDate(a.date);
-            const dateB = parseDate(b.date);
-            return dateA - dateB;
-        });
-
-        return sortedData;
-    });
-
 
     // Filters
     const filteredItems = useMemo(() => {
-        let filteredMoves = [...sortByDateMoves];
+        let filteredMoves = [...moves];
 
         if (moveTypeFilter !== "all" && Array.from(moveTypeFilter).length !== moveTypeOptions.length) {
             filteredMoves = filteredMoves.filter((move) =>
@@ -151,6 +152,16 @@ export default function MovesList() {
             {isDataLoaded &&
                 <div className="max-w-* rounded-md overflow-hidden onClick">
                     <div className="relative flex justify-end items-center gap-2 p-3 pr-0">
+                        <DateRangePicker
+                            label="Fecha"
+                            className="max-w-xs"
+                            onChange={(range) => handleDateChange(range.start, range.end)}
+                            defaultValue={{
+                                start: today(getLocalTimeZone()).subtract({ days: 7 }),
+                                end: today(getLocalTimeZone())
+                            }}
+
+                        />
                         <Dropdown>
                             <DropdownTrigger>
                                 <Button className='bg-teal text-white' radius='sm'>

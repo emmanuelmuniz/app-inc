@@ -30,9 +30,39 @@ export async function GET(req) {
     const token = await getToken({ req });
     if (token) {
         await connectMongoDB();
-        const moves = await Move.find();
+        const url = new URL(req.url);
+
+        const startDate = url.searchParams.get('startDate');
+        const endDate = url.searchParams.get('endDate');
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+            return NextResponse.json({ message: "Invalid date range" }, { status: 400 });
+        }
+
+        const moves = await Move.find({
+            date: {
+                $gte: start,
+                $lte: end
+            }
+        }).sort({ date: -1 });
+
         return NextResponse.json({ moves });
     } else {
-        return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
+        return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
 }
+
+
+// export async function GET(req) {
+//     const token = await getToken({ req });
+//     if (token) {
+//         await connectMongoDB();
+//         const moves = await Move.find();
+//         return NextResponse.json({ moves });
+//     } else {
+//         return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
+//     }
+// }

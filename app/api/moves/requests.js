@@ -1,8 +1,8 @@
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export async function GetMoves() {
+export async function GetMoves(startDate, endDate) {
     try {
-        const res = await fetch(`${apiUrl}api/moves`, {
+        const res = await fetch(`${apiUrl}api/moves?startDate=${startDate}&endDate=${endDate}`, {
             cache: 'no-store'
         });
 

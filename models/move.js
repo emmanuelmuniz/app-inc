@@ -8,7 +8,7 @@ const categorySchema = new Schema({
 const moveSchema = new Schema(
     {
         detail: String,
-        date: String,
+        date: Date,
         amount: Number,
         category: categorySchema,
         moveType: String,
