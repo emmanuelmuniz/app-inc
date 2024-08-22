@@ -49,7 +49,7 @@ export default function MovesList() {
     // Get Moves and categories
     useEffect(() => {
         const fetchData = async () => {
-            await GetMoves("2024-07-16", "2024-09-30")
+            await GetMoves(today(getLocalTimeZone()).subtract({ days: 7 }), today(getLocalTimeZone()))
                 .then((response) => {
                     setMoves(response.moves);
                     const fetchCategories = async () => {

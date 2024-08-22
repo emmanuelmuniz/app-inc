@@ -59,7 +59,7 @@ const config: Config = {
               DEFAULT: "#1f7a8c",
               foreground: "#fff",
             },
-            focus: "#BEF264",
+            focus: "#fff",
           },
         },
         dark: {
@@ -68,7 +68,7 @@ const config: Config = {
               DEFAULT: "#1f7a8c",
               foreground: "#fff",
             },
-            focus: "#BEF264",
+            focus: "#fff",
           },
         },
       },
