@@ -55,11 +55,12 @@ const config: Config = {
       themes: {
         light: {
           colors: {
+            background: "#1f7a8c",
             primary: {
               DEFAULT: "#1f7a8c",
               foreground: "#fff",
             },
-            focus: "#fff",
+            focus: "#1f7a8c",
           },
         },
         dark: {

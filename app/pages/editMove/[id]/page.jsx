@@ -17,13 +17,12 @@ const getMoveById = async (id) => {
         }
 
         return res.json();
-
     } catch (error) {
         console.log(error);
     }
 }
 
-export default async function EditMoqve({ params }) {
+export default async function EditMove({ params }) {
     const { data: session } = useSession({ required: true });
 
     const { id } = params;

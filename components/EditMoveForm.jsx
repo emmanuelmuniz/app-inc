@@ -29,16 +29,10 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
         category: category.category,
     });
 
-
-    const parts = date.split("-");
-    const day = parseInt(parts[0]);
-    const month = parseInt(parts[1] - 1);
-    const year = parseInt(parts[2]);
-
-    const dateObject = new Date(year, month, day);
-    const formattedDate = dateObject.toISOString().slice(0, 10);
-    const inputDate = parseDate(formattedDate);
-    const [updatedDate, setDate] = useState(inputDate);
+    const inputDate = new Date(date);
+    const formattedDate = inputDate.toISOString().slice(0, 10);
+    const parsedDate = parseDate(formattedDate);
+    const [updatedDate, setDate] = useState(parsedDate);
 
     const moveTypeItems = [
         { value: "Ingreso", label: "Ingreso" },
@@ -72,17 +66,11 @@ export default function EditMoveForm({ id, detail, amount, date, moveType, categ
         e.preventDefault();
 
         try {
-            const date = new Date(
+            const newDate = new Date(
                 updatedDate.year,
                 updatedDate.month - 1,
                 updatedDate.day
-            ).toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric"
-            });
-
-            const newDate = FormatDate(date);
+            );
 
             const res = await fetch(`${apiUrl}api/moves/${id}`, {
                 method: "PUT",

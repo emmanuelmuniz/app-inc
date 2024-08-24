@@ -162,7 +162,8 @@ export default function MovesList() {
                             <DateRangePicker
                                 label="Rango de Fechas"
                                 color='primary'
-                                onChange={(range) => handleDateChange(range.start, range.end)}
+                                variant='faded'
+                                onChange={(range) => handleDateChange(range.start, range.end.add({ days: 1 }) )}
                                 defaultValue={{
                                     start: today(getLocalTimeZone()).subtract({ days: 7 }),
                                     end: today(getLocalTimeZone())

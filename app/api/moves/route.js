@@ -55,14 +55,3 @@ export async function GET(req) {
     }
 }
 
-
-// export async function GET(req) {
-//     const token = await getToken({ req });
-//     if (token) {
-//         await connectMongoDB();
-//         const moves = await Move.find();
-//         return NextResponse.json({ moves });
-//     } else {
-//         return NextResponse.json({ message: "Not Authotized" }, { status: 401 });
-//     }
-// }
