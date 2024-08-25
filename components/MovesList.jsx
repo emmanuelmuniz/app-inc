@@ -163,7 +163,7 @@ export default function MovesList() {
                                 label="Rango de Fechas"
                                 color='primary'
                                 variant='faded'
-                                onChange={(range) => handleDateChange(range.start, range.end.add({ days: 1 }) )}
+                                onChange={(range) => handleDateChange(range.start.add({ days: 1 }), range.end.add({ days: 1 }))}
                                 defaultValue={{
                                     start: today(getLocalTimeZone()).subtract({ days: 7 }),
                                     end: today(getLocalTimeZone())
