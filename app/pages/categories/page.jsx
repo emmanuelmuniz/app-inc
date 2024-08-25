@@ -2,7 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import Link from "next/link"
-import { GetCategories } from '@/api/categories/requests'
+import { GetCategories } from '@/app/api/categories/requests'
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveCategory from '@/components/categories/RemoveCategory'
 import { useEffect, useState } from 'react';

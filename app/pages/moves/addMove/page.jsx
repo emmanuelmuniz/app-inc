@@ -8,7 +8,7 @@ import { Input } from "@nextui-org/input";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import { GetCategories } from '@/api/categories/requests';
+import { GetCategories } from '@/app/api/categories/requests';
 import { useSession } from "next-auth/react";
 import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
 
