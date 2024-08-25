@@ -2,11 +2,11 @@
 
 import { Button } from "@nextui-org/button";
 import Link from "next/link"
-import { GetCategories } from '../../api/categories/requests'
+import { GetCategories } from '@/api/categories/requests'
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveCategory from '@/components/categories/RemoveCategory'
 import { useEffect, useState } from 'react';
-import LoadingDisplay from "../../../components/LoadingDisplay"
+import LoadingDisplay from "@/components/LoadingDisplay"
 import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
 
 export default async function Categories() {
