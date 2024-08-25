@@ -9,14 +9,14 @@ import { Pagination } from "@nextui-org/pagination";
 import { useSortCategoriesByName } from "@/app/hooks/useSortCategoriesByName";
 import { DateRangePicker } from "@nextui-org/date-picker";
 
-import { GetMoves } from '../app/api/moves/requests'
-import { GetCategories } from '../app/api/categories/requests'
+import { GetMoves } from '../../../app/api/moves/requests'
+import { GetCategories } from '../../../app/api/categories/requests'
 
-import RemoveButton from '@/components/RemoveButton'
+import RemoveButton from '@/components/moves/removeButton/RemoveButton'
 import LoadingDisplay from '@/components/LoadingDisplay'
-import MoveModal from '@/components/moveModal/MoveModal'
+import MoveModal from '@/components/moves/moveModal/MoveModal'
 import Link from "next/link"
-import Balance from '@/components/Balance'
+import Balance from '@/components/moves/balance/Balance'
 
 import { moveTypes, payMethods } from "@/app/data/Data.js"
 import Formatter from "@/app/utils/AmountFormatter"
@@ -40,11 +40,6 @@ export default function MovesList() {
 
     const [selectedElement, setSelectedElement] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const [startDate, setStartDate] = useState(today(getLocalTimeZone()).subtract({ days: 6 }));
-    const [endDate, setEndDate] = useState(today(getLocalTimeZone()));
-
-    // const { data: session } = useSession({ required: true });
 
     // Get Moves and categories
     useEffect(() => {
@@ -149,7 +144,7 @@ export default function MovesList() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES'); // Ajusta el local según sea necesario
+        return date.toLocaleDateString('es-ES');
     };
 
     return (
@@ -268,7 +263,7 @@ export default function MovesList() {
                                             {m.detail && (
                                                 <>
                                                     <RemoveButton id={m._id} className='mx-1' />
-                                                    <Link className='mx-1 hover:opacity-70 duration-300' href={`/pages/editMove/${m._id}`}>
+                                                    <Link className='mx-1 hover:opacity-70 duration-300' href={`/pages/moves/editMove/${m._id}`}>
                                                         <HiPencilAlt title="Editar" size={24} />
                                                     </Link>
                                                 </>

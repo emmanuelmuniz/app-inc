@@ -8,8 +8,8 @@ import { Input } from "@nextui-org/input";
 import { parseDate } from "@internationalized/date";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import { GetCategories } from '../app/api/categories/requests';
-import FormatDate from "../app/utils/DateFormatter";
+import { GetCategories } from '../../../app/api/categories/requests';
+import FormatDate from "../../../app/utils/DateFormatter";
 
 async function fetchCategories() {
     const { categories } = await GetCategories();

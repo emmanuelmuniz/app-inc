@@ -1,6 +1,6 @@
 "use client"
 
-import EditMoveForm from "@/components/EditMoveForm"
+import EditMoveForm from "@/components/moves/editMoveForm/EditMoveForm"
 import { useSession } from "next-auth/react";
 
 
