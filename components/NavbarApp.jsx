@@ -21,13 +21,13 @@ export default function NavbarApp() {
                     </NavbarBrand>
                     <NavbarContent justify="end" className="-mr-1">
                         <NavbarItem className="text-white font-semibold mx-2 text-sm">
-                            <Link href={'/pages/addMove'}>Crear Movimiento</Link>
+                            <Link href={'/pages/moves/addMove'}>Crear Movimiento</Link>
                         </NavbarItem>
                         <NavbarItem className="text-white font-semibold mx-2 text-sm">
                             <Link href={'/pages/categories'}>Categorías</Link>
                         </NavbarItem>
                         <NavbarItem className="text-white font-semibold ml-2 text-sm">
-                            <Link href={'/pages/fileImport'}>Importar Movimientos</Link>
+                            <Link href={'/pages/moves/fileImport'}>Importar Movimientos</Link>
                         </NavbarItem>
                         <NavbarItem className="text-white font-semibold ml-2 text-sm">
                             <Link href={'/pages/dashboard'}>Ver Perfil</Link>
