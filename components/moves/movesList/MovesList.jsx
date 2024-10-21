@@ -241,7 +241,7 @@ export default function MovesList() {
                                     <th key={"moveType"} className='font-normal p-3 text-left'>Tipo de mov.</th>
                                     <th key={"payMethod"} className='font-normal p-3 text-left'>Medio de pago</th>
                                     <th key={"category"} className='font-normal p-3 text-left'>Categoría</th>
-                                    <th key={"detail"} className='font-normal p-3 text-left'>Detalle</th>
+                                    {/* <th key={"detail"} className='font-normal p-3 text-left'>Detalle</th> */}
                                     <th key={"actions"} className='font-normal p-3 pr-6 text-center'>Acciones</th>
                                 </tr>
                             </thead>
@@ -257,7 +257,7 @@ export default function MovesList() {
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.moveType}</td>
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.payMethod}</td>
                                         <td className='p-3 text-left text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.category ? m.category.category : ''}</td>
-                                        <td className='p-3 text-left fixed-column text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td>
+                                        {/* <td className='p-3 text-left fixed-column text-sm' onClick={() => m.detail && handleSelectedElement(m)}>{m.detail ? adjustCellContent(m.detail, fixedColumnLength) : ''}</td> */}
 
                                         <td className='p-3 pr-6 text-center grid grid-cols-2 place-items-center'>
                                             {m.detail && (
