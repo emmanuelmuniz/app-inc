@@ -76,12 +76,7 @@ export default function AddMove() {
                 const userName = session.user.name;
 
                 const dateToAdd = new Date(moveDate.year, moveDate.month - 1, moveDate.day);
-                // .toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric" });
-
-                console.log(dateToAdd);
-
-                // let date = FormatDate(dateToAdd);
-                let date = dateToAdd
+                let date = dateToAdd;
 
                 const res = await fetch(`${apiUrl}api/moves/move`, {
                     method: "POST",
